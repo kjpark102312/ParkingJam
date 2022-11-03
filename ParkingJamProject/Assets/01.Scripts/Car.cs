@@ -8,6 +8,8 @@ public class Car : MonoBehaviour
 
     Rigidbody rb;
 
+    [SerializeField] bool isMove = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,17 +24,22 @@ public class Car : MonoBehaviour
         if(theta <= sightAngle)
         {
             Debug.Log("¾Õ");
-            StartCoroutine(MoveCo(- transform.right));
+            if(!isMove)
+                StartCoroutine(MoveCo(- transform.right));
         }
         else
         {
             Debug.Log("µÚ");
-            StartCoroutine(MoveCo(transform.right));
+            if (!isMove)
+                StartCoroutine(MoveCo(transform.right));
         }
     }
 
     IEnumerator MoveCo(Vector3 dir)
     {
+        isMove = true;
+
+        rb.constraints = RigidbodyConstraints.FreezeRotation; 
         while (true)
         {
             rb.velocity = dir * 5;
@@ -47,6 +54,9 @@ public class Car : MonoBehaviour
         {
             StopAllCoroutines();
             rb.velocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+
+            isMove = false;
         }
     }
 
