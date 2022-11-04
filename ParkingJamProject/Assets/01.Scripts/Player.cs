@@ -15,10 +15,8 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-
             if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane, 1 << 6))
             {
-
                 if (hit.collider == null)
                     return;
                 Debug.Log("Å¬¸¯");
