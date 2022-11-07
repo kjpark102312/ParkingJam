@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     Vector3 lastPos;
 
     GameObject hitObj;
+
+    bool isCanTouchCar = true;
+
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -19,16 +22,15 @@ public class Player : MonoBehaviour
             {
                 if (hit.collider == null)
                     return;
-                Debug.Log("클릭");
+                if (!isCanTouchCar)
+                    return;
 
                 if (hit.collider.CompareTag("Car"))
                 {
                     firstPos = hit.point    ;
                     hitObj = hit.collider.gameObject;
 
-                    Debug.DrawRay(firstPos, -hitObj.transform.right, Color.red, 20f);
-
-                    Debug.Log("맞음");
+                    //Debug.DrawRay(firstPos, -hitObj.transform.right, Color.red, 20f);
                 }
             }
         }
@@ -36,16 +38,21 @@ public class Player : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane ))
             {
+                if (!isCanTouchCar)
+                    return;
+
                 lastPos = hit.point;
 
-                Debug.DrawLine(hitObj.transform.position, lastPos, Color.red);
-
-                if ((lastPos - firstPos).sqrMagnitude > 0.5f)
+                if ((lastPos - firstPos).sqrMagnitude > 0.5f && !hitObj.GetComponent<Car>().isMove)
                 {
+                    isCanTouchCar = false;
                     hitObj.GetComponent<Car>().Move(lastPos - firstPos);
-                    return;
                 }
             }
+        }
+        if(Input.GetMouseButtonUp(0))
+        {
+            isCanTouchCar = true;
         }
 
     }

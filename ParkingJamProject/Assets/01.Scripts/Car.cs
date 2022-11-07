@@ -9,7 +9,8 @@ public class Car : MonoBehaviour
 
     Rigidbody rb;
 
-    [SerializeField] bool isMove = false;
+    public bool isMove = false;
+
 
     float speed = 15f;
 
@@ -17,10 +18,25 @@ public class Car : MonoBehaviour
 
     NavMeshAgent agent;
 
+    Vector3 curMoveDir;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+    }
+
+    private void Update()
+    {
+
+
+        if (!isMove)
+        {
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+        }
     }
 
     public void Move(Vector3 dir)
@@ -33,13 +49,24 @@ public class Car : MonoBehaviour
         {
             Debug.Log("앞");
             if (!isMove)
+            {
                 StartCoroutine(MoveCo(-transform.right));
+
+                curMoveDir = -transform.right;
+            }
+
         }
         else
         {
             Debug.Log("뒤");
             if (!isMove)
+            {
                 StartCoroutine(MoveCo(transform.right));
+
+                curMoveDir = transform.right;
+            }
+
+
         }
     }
 
@@ -47,8 +74,12 @@ public class Car : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, dir, out hit, 100f, 1 << 7))
+
+        Debug.DrawRay(transform.position, dir, Color.red, 20f);
+        if (Physics.Raycast(transform.position, dir, out hit, 100f, 1 << 6))
         {
+            Debug.Log(hit);
+
             return;
         }
 
@@ -60,9 +91,10 @@ public class Car : MonoBehaviour
     {
         isMove = true;
 
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
 
-        PassCheck(dir);
+        PassCheck(curMoveDir);
+
         while (true)
         {
             rb.velocity = dir * speed;
@@ -73,27 +105,46 @@ public class Car : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        
+
         if (collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Wall"))
         {
             StopAllCoroutines();
+
             ColKnockBack();
+    
+            
+            
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
 
-            rb.velocity = Vector3.zero;
-            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
-
-            isMove = false;
+            
         }
     }
 
     void ColKnockBack()
     {
-        rb.AddForce(-rb.velocity, ForceMode.Force);
+        if(isMove)
+        {
+            Debug.Log("넉백");
+
+            rb.velocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+            rb.AddForce(-curMoveDir * 3f, ForceMode.Impulse);
+
+            Debug.Log(-curMoveDir * 3f);
+            isMove = false;
+        }
     }
 
     public void Pass()
     {
         //  패스
-        agent.SetDestination(passPos.position);
+        StopAllCoroutines();
+        rb.velocity = Vector3.zero;
+        agent.destination = passPos.position;
+
+       
         Debug.Log("패스");
     }
 }
