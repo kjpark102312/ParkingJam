@@ -93,7 +93,7 @@ public class Car : MonoBehaviour
 
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
 
-        PassCheck(curMoveDir);
+        PassCheck(dir);
 
         while (true)
         {
