@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Car
   - Wall
+  - Stage
   layers:
   - Default
   - TransparentFX
