@@ -39,14 +39,11 @@ public class Car : MonoBehaviour
         
         if(targetCorner != null && !isPassing)
         {
-            Debug.Log(Mathf.Floor(transform.localPosition.y));
-            Debug.Log(Mathf.Floor(targetCorner.localPosition.z));
-
             if (Mathf.Floor(transform.localPosition.x) == Mathf.Floor(targetCorner.localPosition.x) 
                 || Mathf.Floor(transform.localPosition.z) == Mathf.Floor(targetCorner.localPosition.z))
             {
-                Debug.Log("Stop");
                 StopAllCoroutines();
+                Pass();
 
                 rb.velocity = Vector3.zero;
 
@@ -59,13 +56,18 @@ public class Car : MonoBehaviour
                 else
                     angle = transform.localEulerAngles.y - 90f;
 
-                if (Mathf.Abs(transform.localEulerAngles.y) == 90)
+
+                Debug.Log(Mathf.Abs(transform.localEulerAngles.y));
+                if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
                 {
-                    Debug.LogError("dwddw");
-                    transform.position = new Vector3(transform.position.x, transform.position.y, targetCorner.position.z);
+                    Debug.LogError("90");
+                    transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, targetCorner.localPosition.z);
                 }
                 else
-                    transform.position = new Vector3(targetCorner.position.x, transform.position.y, transform.position.z);
+                {
+                    transform.localPosition = new Vector3(targetCorner.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+                    Debug.LogError("90외");
+                }
 
                 transform.DORotate(new Vector3(0f, angle, 0), 0.2f).OnComplete(() =>
                     {
@@ -108,7 +110,6 @@ public class Car : MonoBehaviour
                     targetCorner = corners[cornerIndex + 1];
                     cornerIndex = cornerIndex + 1;
                 }
-                Debug.Log(cornerIndex);
             }
 
             rb.velocity = -transform.right.normalized * speed;
@@ -146,26 +147,29 @@ public class Car : MonoBehaviour
 
     public void PassCheck(Vector3 dir)
     {
-        RaycastHit hit;
+        //RaycastHit hit;
 
         Debug.DrawRay(transform.position, dir, Color.red, 20f);
         Debug.DrawRay(transform.position + new Vector3(0, 0, -1f), dir, Color.red, 20f);
         Debug.DrawRay(transform.position + new Vector3(0, 0, +1f), dir, Color.red, 20f);
 
-        if (Physics.Raycast(transform.position + new Vector3(0, 0, -1f), dir, out hit, 20f, 1 << 6))
-        {
-            return;
-        }
-        if (Physics.Raycast(transform.position + new Vector3(0, 0, +1f), dir, out hit, 20f, 1 << 6))
-        {
-            return;
-        }
-        if (Physics.Raycast(transform.position, dir, out hit, 20f, 1 << 6))
-        {
-            return;
-        }
+        //if (Physics.Raycast(transform.position + new Vector3(0, 0, -1f), dir, out hit, 20f, 1 << 6))
+        //{
+        //    Debug.Log("걸리냐 1");
+        //    return;
+        //}
+        //if (Physics.Raycast(transform.position + new Vector3(0, 0, +1f), dir, out hit, 20f, 1 << 6))
+        //{
+        //    Debug.Log("걸리냐 2");
+        //    Debug.Log(hit.transform.gameObject);
+        //    return;
+        //}
+        //if (Physics.Raycast(transform.position, dir, out hit, 20f, 1 << 6))
+        //{
+        //    Debug.Log("걸리냐 3");
+        //    return;
+        //}
 
-        Pass();
     }
 
 
@@ -270,6 +274,8 @@ public class Car : MonoBehaviour
     {
         this.gameObject.layer = 0;
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
+
+        Debug.Log("패스");
     }
 
     void FreezePos()
