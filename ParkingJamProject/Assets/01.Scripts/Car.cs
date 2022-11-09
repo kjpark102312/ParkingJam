@@ -60,13 +60,11 @@ public class Car : MonoBehaviour
                 Debug.Log(Mathf.Abs(transform.localEulerAngles.y));
                 if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
                 {
-                    Debug.LogError("90");
                     transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, targetCorner.localPosition.z);
                 }
                 else
                 {
                     transform.localPosition = new Vector3(targetCorner.localPosition.x, transform.localPosition.y, transform.localPosition.z);
-                    Debug.LogError("90¿Ü");
                 }
 
                 transform.DORotate(new Vector3(0f, angle, 0), 0.2f).OnComplete(() =>
@@ -133,7 +131,7 @@ public class Car : MonoBehaviour
                 curMoveDir = -transform.right;
             }
 
-        }
+        }   
         else
         {
             if (!isMove)

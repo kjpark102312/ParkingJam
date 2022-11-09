@@ -29,8 +29,6 @@ public class Player : MonoBehaviour
                 {
                     firstPos = hit.point    ;
                     hitObj = hit.collider.gameObject;
-
-                    //Debug.DrawRay(firstPos, -hitObj.transform.right, Color.red, 20f);
                 }
             }
         }
