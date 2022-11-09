@@ -7,24 +7,23 @@ using UnityEngine.UI;
 
 public class Car : MonoBehaviour
 {
+    
+    public Transform passPos;
+    public Transform[] corners;
+    public Transform targetCorner;
+
+    public bool isMove = false;
+    bool isPassing = false;
+
     float sightAngle = 90f;
+    float speed = 15f;
+
+    public int cornerIndex = 0;
 
     Rigidbody rb;
 
-    public bool isMove = false;
-
-    float speed = 15f;
-
-    public Transform passPos;
-
     Vector3 curMoveDir;
 
-    public Transform[] corners;
-
-    public Transform targetCorner;
-
-
-    int cornerIndex = 0;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -37,24 +36,84 @@ public class Car : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
         }
 
-        for (int i = 0; i < corners.Length; i++)
+        
+        if(targetCorner != null && !isPassing)
         {
-            if (Mathf.Round(transform.position.x) == Mathf.Round(corners[i].position.x) || Mathf.Round(transform.position.y) == Mathf.Round(corners[i].position.y))
+            Debug.Log(Mathf.Floor(transform.localPosition.y));
+            Debug.Log(Mathf.Floor(targetCorner.localPosition.z));
+
+            if (Mathf.Floor(transform.localPosition.x) == Mathf.Floor(targetCorner.localPosition.x) 
+                || Mathf.Floor(transform.localPosition.z) == Mathf.Floor(targetCorner.localPosition.z))
             {
                 Debug.Log("Stop");
                 StopAllCoroutines();
 
                 rb.velocity = Vector3.zero;
 
-                transform.DORotate(new Vector3(0f, -90f, 0), 0.2f).OnComplete(() =>
-                {
-                    if (CheckAngle(targetCorner.position - transform.position))
-                        return;
-                    else
-                        targetCorner = corners[cornerIndex + 1];
-                });
+                isPassing = true;
 
+                float angle;
+
+                if (curMoveDir == -transform.right.normalized)
+                    angle = transform.localEulerAngles.y + 90f;
+                else
+                    angle = transform.localEulerAngles.y - 90f;
+
+                if (Mathf.Abs(transform.localEulerAngles.y) == 90)
+                {
+                    Debug.LogError("dwddw");
+                    transform.position = new Vector3(transform.position.x, transform.position.y, targetCorner.position.z);
+                }
+                else
+                    transform.position = new Vector3(targetCorner.position.x, transform.position.y, transform.position.z);
+
+                transform.DORotate(new Vector3(0f, angle, 0), 0.2f).OnComplete(() =>
+                    {
+                        if (CheckAngle(targetCorner.position - transform.position))
+                        {
+
+                        }
+                        else
+                            targetCorner = corners[cornerIndex + 1];
+                        cornerIndex = cornerIndex + 1;
+
+
+
+                        
+                        StartCoroutine(PassCo());
+
+                        Debug.Log("asd");
+
+                    });
             }
+        }
+    }
+
+    IEnumerator PassCo()
+    {
+
+        isMove = true;
+
+        rb.constraints = RigidbodyConstraints.None;
+
+        while (true)
+        {
+            if (Vector3.Distance(transform.position, targetCorner.position) <= 1)
+            {
+                Debug.Log(transform.localEulerAngles.y);
+                transform.DORotate(new Vector3(0f, transform.localEulerAngles.y + 90, 0), 0.2f);
+
+                if (cornerIndex < corners.Length)
+                {
+                    targetCorner = corners[cornerIndex + 1];
+                    cornerIndex = cornerIndex + 1;
+                }
+                Debug.Log(cornerIndex);
+            }
+
+            rb.velocity = -transform.right.normalized * speed;
+
+            yield return null;
         }
     }
 
@@ -66,7 +125,6 @@ public class Car : MonoBehaviour
 
         if (theta <= sightAngle)
         {
-            Debug.Log("¾Õ");
             if (!isMove)
             {
                 StartCoroutine(MoveCo(-transform.right));
@@ -77,15 +135,12 @@ public class Car : MonoBehaviour
         }
         else
         {
-            Debug.Log("µÚ");
             if (!isMove)
             {
                 StartCoroutine(MoveCo(transform.right));
 
                 curMoveDir = transform.right;
             }
-
-
         }
     }
 
@@ -123,14 +178,30 @@ public class Car : MonoBehaviour
         PassCheck(dir);
         GetTargetCorner();
 
+        for (int i = 0; i < corners.Length-1; i++)
+        {
+            if (CheckAngle(corners[i].transform.position - transform.position))
+            {
+                if(dir == -transform.right.normalized)
+                {
+                    targetCorner = corners[i];
+                    cornerIndex = i-1;
+                }
+            }
+            else
+            {
+                if (dir == transform.right.normalized)
+                {
+                    targetCorner = corners[i];
+                    cornerIndex = i-1;
+
+                }
+            }
+        }
+
         while (true)
         {
             rb.velocity = dir * speed;
-
-            if (targetCorner != null)
-            {
-                
-            }
 
             yield return null;
         }
@@ -158,8 +229,6 @@ public class Car : MonoBehaviour
             {
                 targetCorner = corners[i];
                 cornerIndex = i;
-
-                Debug.Log("¾Æ¾Ç");
             }
         }
     }
@@ -186,8 +255,6 @@ public class Car : MonoBehaviour
     {
         if (isMove)
         {
-            Debug.Log("³Ë¹é");
-
             rb.velocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
 
@@ -202,9 +269,7 @@ public class Car : MonoBehaviour
     public void Pass()
     {
         this.gameObject.layer = 0;
-
-
-        Debug.Log("ÆÐ½º");
+        this.gameObject.GetComponent<BoxCollider>().enabled = false;
     }
 
     void FreezePos()
