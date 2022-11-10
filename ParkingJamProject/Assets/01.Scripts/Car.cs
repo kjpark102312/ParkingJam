@@ -2,12 +2,10 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UI;
 
 public class Car : MonoBehaviour
 {
-    
+
     public Transform passPos;
     public Transform[] corners;
     public Transform targetCorner;
@@ -22,24 +20,33 @@ public class Car : MonoBehaviour
 
     Rigidbody rb;
 
-    Vector3 curMoveDir;
+    public Vector3 curMoveDir;
+
+    bool isGameOver = false;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        
     }
 
     private void Update()
     {
         if (!isMove)
         {
+            if (isGameOver)
+            {
+                rb.constraints = RigidbodyConstraints.None;
+                return;
+            }
             rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
         }
 
-        
-        if(targetCorner != null && !isPassing)
+
+        if (targetCorner != null && !isPassing)
         {
-            if (Mathf.Floor(transform.localPosition.x) == Mathf.Floor(targetCorner.localPosition.x) 
+            if (Mathf.Floor(transform.localPosition.x) == Mathf.Floor(targetCorner.localPosition.x)
                 || Mathf.Floor(transform.localPosition.z) == Mathf.Floor(targetCorner.localPosition.z))
             {
                 StopAllCoroutines();
@@ -77,13 +84,7 @@ public class Car : MonoBehaviour
                             targetCorner = corners[cornerIndex + 1];
                         cornerIndex = cornerIndex + 1;
 
-
-
-                        
                         StartCoroutine(PassCo());
-
-                        Debug.Log("asd");
-
                     });
             }
         }
@@ -91,7 +92,6 @@ public class Car : MonoBehaviour
 
     IEnumerator PassCo()
     {
-
         isMove = true;
 
         rb.constraints = RigidbodyConstraints.None;
@@ -131,7 +131,7 @@ public class Car : MonoBehaviour
                 curMoveDir = -transform.right;
             }
 
-        }   
+        }
         else
         {
             if (!isMove)
@@ -142,52 +142,22 @@ public class Car : MonoBehaviour
             }
         }
     }
-
-    public void PassCheck(Vector3 dir)
-    {
-        //RaycastHit hit;
-
-        Debug.DrawRay(transform.position, dir, Color.red, 20f);
-        Debug.DrawRay(transform.position + new Vector3(0, 0, -1f), dir, Color.red, 20f);
-        Debug.DrawRay(transform.position + new Vector3(0, 0, +1f), dir, Color.red, 20f);
-
-        //if (Physics.Raycast(transform.position + new Vector3(0, 0, -1f), dir, out hit, 20f, 1 << 6))
-        //{
-        //    Debug.Log("걸리냐 1");
-        //    return;
-        //}
-        //if (Physics.Raycast(transform.position + new Vector3(0, 0, +1f), dir, out hit, 20f, 1 << 6))
-        //{
-        //    Debug.Log("걸리냐 2");
-        //    Debug.Log(hit.transform.gameObject);
-        //    return;
-        //}
-        //if (Physics.Raycast(transform.position, dir, out hit, 20f, 1 << 6))
-        //{
-        //    Debug.Log("걸리냐 3");
-        //    return;
-        //}
-
-    }
-
-
     IEnumerator MoveCo(Vector3 dir)
     {
         isMove = true;
 
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
 
-        PassCheck(dir);
         GetTargetCorner();
 
-        for (int i = 0; i < corners.Length-1; i++)
+        for (int i = 0; i < corners.Length - 1; i++)
         {
             if (CheckAngle(corners[i].transform.position - transform.position))
             {
-                if(dir == -transform.right.normalized)
+                if (dir == -transform.right.normalized)
                 {
                     targetCorner = corners[i];
-                    cornerIndex = i-1;
+                    cornerIndex = i - 1;
                 }
             }
             else
@@ -195,7 +165,7 @@ public class Car : MonoBehaviour
                 if (dir == transform.right.normalized)
                 {
                     targetCorner = corners[i];
-                    cornerIndex = i-1;
+                    cornerIndex = i - 1;
 
                 }
             }
@@ -211,14 +181,43 @@ public class Car : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))
         {
             StopAllCoroutines();
 
             ColKnockBack();
+            CrashAnim(collision.gameObject);
+
+            Debug.Log("sasds");
 
             rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
+
+        if(collision.gameObject.CompareTag("People"))
+        {
+            isGameOver = true;
+            isMove = false;
+
+            StopAllCoroutines();
+
+            Debug.Log("사람 쳤음");
+
+            Invoke("GameOver", 1f);
+        }
+    }
+
+    void CrashAnim(GameObject crashObj)
+    {
+        crashObj.transform.DORotate(new Vector3(curMoveDir.x* 10f, crashObj.transform.localEulerAngles.y, crashObj.transform.localEulerAngles.z), 0.2f).SetLoops(2,LoopType.Yoyo);
+    }
+
+    void GameOver()
+    {
+        rb.AddForce(-curMoveDir * 5f, ForceMode.Impulse);
+        rb.AddForce(transform.up * 12f, ForceMode.Impulse);
+        rb.AddTorque(transform.right * 12f, ForceMode.Impulse);
+
+        Debug.Log("게임 오버");
     }
 
     void GetTargetCorner()
@@ -242,7 +241,7 @@ public class Car : MonoBehaviour
 
         float theta = Mathf.Acos(dot) * (180 / Mathf.PI);
 
-        if(theta <= 90)
+        if (theta <= 90)
         {
             return true;
         }
@@ -252,11 +251,13 @@ public class Car : MonoBehaviour
         }
     }
 
-
     void ColKnockBack()
     {
         if (isMove)
         {
+            if (isGameOver)
+                return;
+
             rb.velocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
 
@@ -265,8 +266,6 @@ public class Car : MonoBehaviour
             Invoke("FreezePos", 0.3f);
         }
     }
-
-
 
     public void Pass()
     {
