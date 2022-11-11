@@ -50,6 +50,8 @@ public class People : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Car"))
         {
+            agent.isStopped = true;
+
             uIManager.GameOverTween();
         }
     }
