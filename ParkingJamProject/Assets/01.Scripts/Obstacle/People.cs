@@ -21,31 +21,35 @@ public class People : MonoBehaviour
 
     void Update()
     {
-        Patrol(index);
+        Patrol();
     }
 
-    void Patrol(int idx)
+    void Patrol()
     {
+        agent.destination = points[index].position;
+
         if (!agent.pathPending && agent.remainingDistance < 0.1f)
         {
             if (points.Length == 0)
                 return;
             agent.destination = points[index].position;
-            index = (index + 1) % points.Length;
+
+            index = index + 1;
+            if(index >= points.Length)
+            {
+                index = 0;
+            }
         }
 
-        Vector3 dir = points[idx].localPosition - transform.localPosition;
+        Vector3 dir = points[index].localPosition - transform.localPosition;
 
         transform.LookAt(dir);
-
-        agent.destination = points[idx].position;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Car"))
         {
-            Debug.Log("ASD");
             uIManager.GameOverTween();
         }
     }

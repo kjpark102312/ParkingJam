@@ -12,6 +12,7 @@ public class Car : MonoBehaviour
 
     public bool isMove = false;
     bool isPassing = false;
+    bool isPass = false;
 
     float sightAngle = 90f;
     float speed = 15f;
@@ -27,8 +28,6 @@ public class Car : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        
     }
 
     private void Update()
@@ -44,6 +43,32 @@ public class Car : MonoBehaviour
         }
 
 
+        if (isPass)
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position, curMoveDir, out hit, 5f, 1 << 6))
+            {
+                if (hit.transform.CompareTag("Car"))
+                {
+                    if(hit.transform.GetComponent<Car>().isPassing == true)
+                    {
+                        StopAllCoroutines();
+                        rb.velocity = Vector3.zero;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                rb.velocity = curMoveDir * speed;
+                Debug.Log("sad");
+            }
+        }
+
         if (targetCorner != null && !isPassing)
         {
             if (Mathf.Floor(transform.localPosition.x) == Mathf.Floor(targetCorner.localPosition.x)
@@ -55,6 +80,7 @@ public class Car : MonoBehaviour
                 rb.velocity = Vector3.zero;
 
                 isPassing = true;
+                isPass = false;
 
                 float angle;
 
@@ -64,7 +90,6 @@ public class Car : MonoBehaviour
                     angle = transform.localEulerAngles.y - 90f;
 
 
-                Debug.Log(Mathf.Abs(transform.localEulerAngles.y));
                 if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
                 {
                     transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, targetCorner.localPosition.z);
@@ -90,9 +115,30 @@ public class Car : MonoBehaviour
         }
     }
 
+
+    void CheckPass()
+    {
+        RaycastHit hit;
+
+        float distance = targetCorner.position.x - transform.position.x;
+
+        if (Physics.Raycast(transform.position, curMoveDir, out hit, distance - 2f, 1 << 6))
+        {
+            if (hit.transform.CompareTag("Car"))
+            {
+                isPass = false;
+            }
+        }
+        else
+        {
+            isPass = true;
+        }
+    }
+
     IEnumerator PassCo()
     {
         isMove = true;
+        isPass = false;
 
         rb.constraints = RigidbodyConstraints.None;
 
@@ -142,9 +188,12 @@ public class Car : MonoBehaviour
             }
         }
     }
+
+
     IEnumerator MoveCo(Vector3 dir)
     {
         isMove = true;
+        isPassing = false;
 
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
 
@@ -170,7 +219,7 @@ public class Car : MonoBehaviour
                 }
             }
         }
-
+        CheckPass();
         while (true)
         {
             rb.velocity = dir * speed;
@@ -188,8 +237,6 @@ public class Car : MonoBehaviour
             ColKnockBack();
             CrashAnim(collision.gameObject);
 
-            Debug.Log("sasds");
-
             rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
 
@@ -199,8 +246,6 @@ public class Car : MonoBehaviour
             isMove = false;
 
             StopAllCoroutines();
-
-            Debug.Log("사람 쳤음");
 
             Invoke("GameOver", 1f);
         }
@@ -270,7 +315,7 @@ public class Car : MonoBehaviour
     public void Pass()
     {
         this.gameObject.layer = 0;
-        this.gameObject.GetComponent<BoxCollider>().enabled = false;
+        this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
 
         Debug.Log("패스");
     }
