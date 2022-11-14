@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
         }
         if(Input.GetMouseButton(0))
         {
-            if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane ))
+            if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane))
             {
                 if (!isCanTouchCar)
                     return;

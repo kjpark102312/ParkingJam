@@ -4040,7 +4040,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6170920363012600079, guid: 03d19fda782ff5c45bc3f39b0da7d9a0, type: 3}
       propertyPath: m_TagString
-      value: Car
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5504221661352228211, guid: 03d19fda782ff5c45bc3f39b0da7d9a0, type: 3}

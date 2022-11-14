@@ -251,6 +251,7 @@ public class Car : MonoBehaviour
             Debug.Log(this.gameObject.name + collision.gameObject.name);
 
             StopAllCoroutines();
+            rb.velocity = Vector3.zero;
 
             rb.constraints = RigidbodyConstraints.FreezeRotation;
                 
@@ -325,7 +326,7 @@ public class Car : MonoBehaviour
             if (isGameOver)
                 return;
 
-            rb.velocity = Vector3.zero;
+            //rb.velocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
 
             rb.AddForce(-curMoveDir * 2.5f, ForceMode.Impulse);
