@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SocialPlatforms;
 
 public class People : MonoBehaviour
 {
@@ -50,9 +51,13 @@ public class People : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Car"))
         {
-            agent.isStopped = true;
+            if(collision.gameObject.GetComponent<Car>().isMove == true)
+            {
+                agent.isStopped = true;
+                collision.gameObject.GetComponent<Car>().isMove = false;
 
-            uIManager.GameOverTween();
+                uIManager.GameOverTween();
+            }
         }
     }
 
