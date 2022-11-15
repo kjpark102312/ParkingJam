@@ -2591,7 +2591,7 @@ GameObject:
   - component: {fileID: 606579263}
   - component: {fileID: 606579262}
   - component: {fileID: 606579270}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Barrier
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -7369,7 +7369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1967872835971984939, guid: 287f8117df1846946a5dabff6f96ce18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -60.068
+      value: -58.04
       objectReference: {fileID: 0}
     - target: {fileID: 1967872835971984939, guid: 287f8117df1846946a5dabff6f96ce18, type: 3}
       propertyPath: m_LocalRotation.w

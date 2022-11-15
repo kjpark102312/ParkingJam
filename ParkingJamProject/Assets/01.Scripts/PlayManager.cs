@@ -33,7 +33,7 @@ public class PlayManager : MonoBehaviour
         {
             Debug.Log("Clear");
 
-            
+            //골 함수 적용될때 체크하기
         }
     }
 }
