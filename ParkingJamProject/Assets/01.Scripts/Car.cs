@@ -66,6 +66,8 @@ public class Car : MonoBehaviour
             else
             {
                 rb.velocity = curMoveDir * speed;
+
+                Debug.Log("asd");
             }
         }
 
@@ -131,6 +133,8 @@ public class Car : MonoBehaviour
         }
 
         int layerMask = 1 << 6 | 1 << 7;
+
+        Debug.DrawLine(transform.position, curMoveDir * (distance - 2f), Color.red);
 
         if (Physics.Raycast(transform.position, curMoveDir, out hit, distance - 2f, layerMask))
         {
@@ -257,7 +261,7 @@ public class Car : MonoBehaviour
             rb.velocity = Vector3.zero;
             
             ColKnockBack();
-            CrashAnim(collision.gameObject);
+            //CrashAnim(collision.gameObject);
         }
 
         if (collision.gameObject.CompareTag("People"))

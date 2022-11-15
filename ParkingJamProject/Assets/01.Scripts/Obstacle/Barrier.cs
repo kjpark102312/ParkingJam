@@ -8,6 +8,11 @@ public class Barrier : TriggerObstacle
     public override void Triggered()
     {
         base.Triggered();
+        Invoke("BreakObj", 0.5f);
+    }
+
+    void BreakObj()
+    {
         gameObject.SetActive(false);
     }
 }
