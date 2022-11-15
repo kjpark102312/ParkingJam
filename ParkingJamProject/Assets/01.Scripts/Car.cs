@@ -47,8 +47,8 @@ public class Car : MonoBehaviour
         if (isPass)
         {
             RaycastHit hit;
-
-            if (Physics.Raycast(transform.position, curMoveDir, out hit, 10f, 1 << 6))
+            int layerMask = 1 << 6 | 1 << 7;
+            if (Physics.Raycast(transform.position, curMoveDir, out hit, 10f, layerMask))
             {
                 if (hit.transform.CompareTag("Car"))
                 {
@@ -130,8 +130,9 @@ public class Car : MonoBehaviour
             distance = targetCorner.position.z - transform.position.z;
         }
 
+        int layerMask = 1 << 6 | 1 << 7;
 
-        if (Physics.Raycast(transform.position, curMoveDir, out hit, distance - 2f, 1 << 6))
+        if (Physics.Raycast(transform.position, curMoveDir, out hit, distance - 2f, layerMask))
         {
             if (hit.transform.CompareTag("Car") && hit.transform.CompareTag("Obstacle"))
             {
@@ -239,6 +240,8 @@ public class Car : MonoBehaviour
         {
             rb.velocity = dir * speed;
 
+            Debug.Log("MoveCo");
+
             yield return null;
         }
     }
@@ -248,16 +251,13 @@ public class Car : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log(this.gameObject.name + collision.gameObject.name);
+            Debug.Log(this.gameObject.name +','+ collision.gameObject.tag);
 
             StopAllCoroutines();
             rb.velocity = Vector3.zero;
-
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
-                
+            
             ColKnockBack();
             CrashAnim(collision.gameObject);
-
         }
 
         if (collision.gameObject.CompareTag("People"))
@@ -265,8 +265,14 @@ public class Car : MonoBehaviour
             isGameOver = true;
 
             StopAllCoroutines();
+        }
+    }
 
-            Invoke("GameOver", 1f);
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log(this.gameObject.name + ',' + collision.gameObject.tag);
         }
     }
 
@@ -326,12 +332,13 @@ public class Car : MonoBehaviour
             if (isGameOver)
                 return;
 
-            //rb.velocity = Vector3.zero;
+            StopAllCoroutines();
+
+            rb.velocity = Vector3.zero;
+
             rb.constraints = RigidbodyConstraints.FreezeRotation;
 
             rb.AddForce(-curMoveDir * 2.5f, ForceMode.Impulse);
-
-            Debug.Log("asd");
 
             Invoke("FreezePos", 0.3f);
         }
