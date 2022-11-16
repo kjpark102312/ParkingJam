@@ -2,10 +2,10 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Car : MonoBehaviour
 {
-
     public Transform passPos;
     public Transform[] corners;
     public Transform targetCorner;
@@ -25,9 +25,26 @@ public class Car : MonoBehaviour
 
     bool isGameOver = false;
 
+    People[] people;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        people = FindObjectsOfType<People>();
+        
+        for (int i = 0; i < people.Length; i++)
+        {
+            people[i].onCollisionCar += () =>
+            {
+                isGameOver = true;
+
+                StopAllCoroutines();
+
+                rb.velocity = Vector3.zero;
+
+                Invoke("GameOver", 1f);
+            };
+        }
     }
 
     private void Update()
@@ -40,7 +57,7 @@ public class Car : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.None;
                 return;
             }
-            rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
 
         // 중복 이동 제한 함수
@@ -66,8 +83,6 @@ public class Car : MonoBehaviour
             else
             {
                 rb.velocity = curMoveDir * speed;
-
-                Debug.Log("asd");
             }
         }
 
@@ -132,7 +147,7 @@ public class Car : MonoBehaviour
             distance = targetCorner.position.z - transform.position.z;
         }
 
-        int layerMask = 1 << 6 | 1 << 7;
+        int layerMask = 1 << 6 | 1 << 7 | 1 << 8;
 
         Debug.DrawLine(transform.position, curMoveDir * (distance - 2f), Color.red);
 
@@ -156,7 +171,7 @@ public class Car : MonoBehaviour
         isMove = true;
         isPass = false;
 
-        rb.constraints = RigidbodyConstraints.None;
+        rb.constraints = RigidbodyConstraints.FreezePositionY;
 
         while (true)
         {
@@ -244,9 +259,9 @@ public class Car : MonoBehaviour
         {
             rb.velocity = dir * speed;
 
-            Debug.Log("MoveCo");
+            Debug.Log("asd");
 
-            yield return null;
+                yield return null;
         }
     }
 
@@ -263,22 +278,8 @@ public class Car : MonoBehaviour
             ColKnockBack();
             //CrashAnim(collision.gameObject);
         }
-
-        if (collision.gameObject.CompareTag("People"))
-        {
-            isGameOver = true;
-
-            StopAllCoroutines();
-        }
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))
-        {
-            Debug.Log(this.gameObject.name + ',' + collision.gameObject.tag);
-        }
-    }
 
     // 부딪혔을때 연출
     void CrashAnim(GameObject crashObj)
@@ -290,8 +291,8 @@ public class Car : MonoBehaviour
     void GameOver()
     {
         rb.AddForce(-curMoveDir * 5f, ForceMode.Impulse);
-        rb.AddForce(transform.up * 12f, ForceMode.Impulse);
-        rb.AddTorque(transform.right * 12f, ForceMode.Impulse);
+        rb.AddForce(transform.up * 10f, ForceMode.Impulse);
+        rb.AddTorque(transform.right * 10f, ForceMode.Impulse);
 
         Debug.Log("게임 오버");
     }
@@ -343,6 +344,8 @@ public class Car : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezeRotation;
 
             rb.AddForce(-curMoveDir * 2.5f, ForceMode.Impulse);
+
+            Debug.Log(-curMoveDir);
 
             Invoke("FreezePos", 0.3f);
         }

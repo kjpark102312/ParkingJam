@@ -1,9 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SocialPlatforms;
 
 public class People : MonoBehaviour
 {
@@ -14,6 +13,8 @@ public class People : MonoBehaviour
     NavMeshAgent agent;
 
     UIManager uIManager;
+
+    public Action onCollisionCar = () => { };
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -22,6 +23,19 @@ public class People : MonoBehaviour
 
     void Update()
     {
+        RaycastHit hit;
+
+        Debug.DrawRay(transform.position, transform.forward + transform.right, Color.red , 3f);
+
+        if(Physics.Raycast(transform.position, transform.forward, out hit, 1f, 1 << 6))
+        {
+            agent.isStopped = true;
+
+        }
+        else
+        {
+            agent.isStopped = false;
+        }
         Patrol();
     }
 
@@ -51,14 +65,18 @@ public class People : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Car"))
         {
-            if(collision.gameObject.GetComponent<Car>().isMove == true)
+            agent.isStopped = true;
+
+
+            if (collision.gameObject.GetComponent<Car>().isMove == true)
             {
-                agent.isStopped = true;
                 collision.gameObject.GetComponent<Car>().isMove = false;
 
                 uIManager.GameOverTween();
+
+                onCollisionCar();
+                
             }
         }
     }
-
 }
