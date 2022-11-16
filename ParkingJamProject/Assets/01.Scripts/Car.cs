@@ -12,7 +12,7 @@ public class Car : MonoBehaviour
 
     public bool isMove = false;
     bool isPassing = false;
-    bool isPass = false;
+    public bool isPass = false;
 
     float sightAngle = 90f;
     float speed = 15f;
