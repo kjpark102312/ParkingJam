@@ -25,8 +25,6 @@ public class People : MonoBehaviour
     {
         RaycastHit hit;
 
-        Debug.DrawRay(transform.position, transform.forward + transform.right, Color.red , 3f);
-
         if(Physics.Raycast(transform.position, transform.forward, out hit, 1f, 1 << 6))
         {
             agent.isStopped = true;
@@ -71,6 +69,7 @@ public class People : MonoBehaviour
             if (collision.gameObject.GetComponent<Car>().isMove == true)
             {
                 collision.gameObject.GetComponent<Car>().isMove = false;
+                collision.gameObject.GetComponent<Car>().isGameOver = true;
 
                 uIManager.GameOverTween();
 

@@ -12,6 +12,7 @@ public class Car : MonoBehaviour
     public bool isMove = false;
     bool isPassing = false;
     public bool isPass = false;
+    public bool isGameOver = false;
 
     float sightAngle = 90f;
     float speed = 15f;
@@ -22,7 +23,6 @@ public class Car : MonoBehaviour
 
     public Vector3 curMoveDir;
 
-    bool isGameOver = false;
 
     People[] people;
 
@@ -35,13 +35,16 @@ public class Car : MonoBehaviour
         {
             people[i].onCollisionCar += () =>
             {
-                isGameOver = true;
 
-                StopAllCoroutines();
 
-                rb.velocity = Vector3.zero;
+                if(isGameOver)
+                {
+                    StopAllCoroutines();
 
-                Invoke("GameOver", 1f);
+                    rb.velocity = Vector3.zero;
+
+                    Invoke("GameOver", 1f);
+                }
             };
         }
     }
@@ -177,7 +180,7 @@ public class Car : MonoBehaviour
             if (Vector3.Distance(transform.position, targetCorner.position) <= 1)
             {
                 Debug.Log(transform.localEulerAngles.y);
-                transform.DORotate(new Vector3(0f, transform.localEulerAngles.y + 90, 0), 0.2f);
+                transform.DORotate(new Vector3(0f, transform.localEulerAngles.y + 90, 0), 0.15f);
 
                 if (cornerIndex < corners.Length)
                 {
