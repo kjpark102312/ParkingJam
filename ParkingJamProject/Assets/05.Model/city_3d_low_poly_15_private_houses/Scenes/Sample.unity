@@ -514,6 +514,8 @@ MonoBehaviour:
   mWidth: 236
   mHeight: 408
   mDepth: 0
+  boundless: 0
+  mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -533,6 +535,7 @@ MonoBehaviour:
   topType: 1
   mAtlas: {fileID: 1481644842117038765, guid: d2560accb95590a4d83ef56865934fe1, type: 3}
   mSpriteName: FadeBackGround
+  mFixedAspect: 0
   mFillCenter: 1
 --- !u!114 &98505537
 MonoBehaviour:
@@ -574,9 +577,11 @@ MonoBehaviour:
     m_RotationOrder: 4
   ignoreTimeScale: 1
   delay: 2
+  delayAffects: 2
   duration: 2
   steeperCurves: 0
   tweenGroup: 0
+  useFixedUpdate: 0
   onFinished:
   - mTarget: {fileID: 1218383770}
     mMethodName: ReloadScene
@@ -586,6 +591,8 @@ MonoBehaviour:
   callWhenFinished: 
   from: 0
   to: 1
+  autoCleanup: 0
+  colorProperty: 
 --- !u!1001 &104864114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1649,6 +1656,8 @@ MonoBehaviour:
   - {fileID: 1576209896}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!4 &304359117 stripped
@@ -2268,6 +2277,8 @@ MonoBehaviour:
   - {fileID: 1576209896}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!54 &479653797
@@ -2744,6 +2755,8 @@ MonoBehaviour:
   - {fileID: 1576209896}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!1001 &551309128
@@ -3069,6 +3082,8 @@ MonoBehaviour:
   - {fileID: 1576209896}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!1 &605858296
@@ -3692,6 +3707,8 @@ MonoBehaviour:
   - {fileID: 1576209896}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!1 &683495128
@@ -4983,6 +5000,8 @@ MonoBehaviour:
   updateAnchors: 1
   showInPanelTool: 1
   generateNormals: 0
+  generateUV2: 0
+  shadowMode: 0
   widgetsAreStatic: 0
   cullWhileDragging: 1
   alwaysOnScreen: 0
@@ -4992,6 +5011,7 @@ MonoBehaviour:
   startingRenderQueue: 3000
   mClipTexture: {fileID: 0}
   mAlpha: 1
+  mAlphaProp: 
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
   mClipSoftness: {x: 4, y: 4}
@@ -4999,6 +5019,7 @@ MonoBehaviour:
   mSortingOrder: 0
   mSortingLayerName: 
   mClipOffset: {x: 0, y: 0}
+  useSortingOrder: 0
 --- !u!114 &1094023900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5029,7 +5050,7 @@ Transform:
   m_GameObject: {fileID: 1094023897}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.004889976, y: 0.004889976, z: 0.004889976}
+  m_LocalScale: {x: 0.004597701, y: 0.004597701, z: 0.004597701}
   m_Children:
   - {fileID: 1667346715}
   m_Father: {fileID: 2023440718}
@@ -5373,6 +5394,8 @@ MonoBehaviour:
   - {fileID: 1576209896}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!1001 &1218126427
@@ -5651,6 +5674,8 @@ MonoBehaviour:
   - {fileID: 1576209896}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!1001 &1310289240
@@ -6639,6 +6664,8 @@ MonoBehaviour:
   - {fileID: 1576209896}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!1001 &1661021159
@@ -6956,6 +6983,8 @@ MonoBehaviour:
   - {fileID: 1576209896}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!1 &1692809130
@@ -7973,6 +8002,8 @@ MonoBehaviour:
   - {fileID: 1576209896}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!1 &2023440717

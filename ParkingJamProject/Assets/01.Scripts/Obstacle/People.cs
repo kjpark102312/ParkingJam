@@ -23,17 +23,9 @@ public class People : MonoBehaviour
 
     void Update()
     {
-        RaycastHit hit;
 
-        if(Physics.Raycast(transform.position, transform.forward, out hit, 1f, 1 << 6))
-        {
-            agent.isStopped = true;
+        Debug.DrawRay(transform.position, transform.forward, Color.red, 1f);
 
-        }
-        else
-        {
-            agent.isStopped = false;
-        }
         Patrol();
     }
 
@@ -64,6 +56,7 @@ public class People : MonoBehaviour
         if(collision.gameObject.CompareTag("Car"))
         {
             agent.isStopped = true;
+            agent.velocity = Vector3.zero;
 
 
             if (collision.gameObject.GetComponent<Car>().isMove == true)

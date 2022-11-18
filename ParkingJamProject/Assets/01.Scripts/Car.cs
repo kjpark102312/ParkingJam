@@ -10,9 +10,10 @@ public class Car : MonoBehaviour
     public Transform targetCorner;
 
     public bool isMove = false;
-    bool isPassing = false;
     public bool isPass = false;
     public bool isGameOver = false;
+    bool isPassing = false;
+    bool isCol = false;
 
     float sightAngle = 90f;
     float speed = 15f;
@@ -23,21 +24,18 @@ public class Car : MonoBehaviour
 
     public Vector3 curMoveDir;
 
-
     People[] people;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         people = FindObjectsOfType<People>();
-        
+
         for (int i = 0; i < people.Length; i++)
         {
             people[i].onCollisionCar += () =>
             {
-
-
-                if(isGameOver)
+                if (isGameOver)
                 {
                     StopAllCoroutines();
 
@@ -61,12 +59,31 @@ public class Car : MonoBehaviour
             }
             rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
-
+        else
+        {
+            if (!isPassing)
+            {
+                if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
+                {
+                    rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;
+                }
+                else
+                {
+                    rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+                }
+            }
+            else
+            {
+                rb.constraints = RigidbodyConstraints.FreezePositionY;
+            }
+        }
+        
+        
         // 중복 이동 제한 함수
         if (isPass)
         {
             RaycastHit hit;
-            int layerMask = 1 << 6 | 1 << 7;
+            int layerMask = 1 << 6 | 1 << 7 | 1 << 8;
             if (Physics.Raycast(transform.position, curMoveDir, out hit, 10f, layerMask))
             {
                 if (hit.transform.CompareTag("Car"))
@@ -74,19 +91,28 @@ public class Car : MonoBehaviour
                     if (hit.transform.GetComponent<Car>().isPassing == true)
                     {
                         StopAllCoroutines();
-                        rb.velocity = Vector3.zero;
                     }
                     else
                     {
                         return;
                     }
                 }
+                else
+                {
+                    return;
+                }
             }
             else
             {
                 rb.velocity = curMoveDir * speed;
+                Debug.Log(curMoveDir);
             }
         }
+
+        //if (isCol)
+        //{
+        //    rb.velocity = Vector3.zero;
+        //}
 
         // Pass 했을때 자동차객체 위치 및 로테이션 제어문
         if (targetCorner != null && !isPassing)
@@ -142,27 +168,35 @@ public class Car : MonoBehaviour
         float distance;
         if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
         {
-            distance = targetCorner.position.x - transform.position.x;
+            distance = targetCorner.position.z - transform.position.z;
         }
         else
         {
-            distance = targetCorner.position.z - transform.position.z;
+            distance = targetCorner.position.x - transform.position.x;
         }
 
         int layerMask = 1 << 6 | 1 << 7 | 1 << 8;
 
         Debug.DrawLine(transform.position, curMoveDir * (distance - 2f), Color.red);
 
-        if (Physics.Raycast(transform.position, curMoveDir, out hit, distance - 2f, layerMask))
+        distance = Mathf.Abs(distance);
+
+        Debug.Log(distance);
+        Debug.Log(curMoveDir);
+
+        if (Physics.Raycast(transform.position, curMoveDir, out hit, distance, layerMask))
         {
-            if (hit.transform.CompareTag("Car") && hit.transform.CompareTag("Obstacle"))
+            if (hit.transform.CompareTag("Car") && hit.transform.CompareTag("Obstacle") && hit.transform.CompareTag("Wall"))
             {
                 isPass = false;
+
+                Debug.Log(hit.transform.tag);
             }
         }
         else
         {
             isPass = true;
+            Debug.Log("아무것도없음");
         }
     }
 
@@ -189,6 +223,8 @@ public class Car : MonoBehaviour
                 }
             }
 
+            Debug.Log("PASS!!");
+
             rb.velocity = -transform.right.normalized * speed;
 
             yield return null;
@@ -207,24 +243,23 @@ public class Car : MonoBehaviour
         {
             if (!isMove)
             {
+                curMoveDir = -transform.right;
+
                 StartCoroutine(MoveCo(-transform.right));
 
-                curMoveDir = -transform.right;
             }
-
         }
         else
         {
             if (!isMove)
             {
+                curMoveDir = transform.right;
+
                 StartCoroutine(MoveCo(transform.right));
 
-                curMoveDir = transform.right;
             }
         }
     }
-
-
 
     // 실질적인 움직임과 코너부분 제어하는 함수
     IEnumerator MoveCo(Vector3 dir)
@@ -259,29 +294,36 @@ public class Car : MonoBehaviour
         CheckPass();
         while (true)
         {
+            Debug.LogError("아아아");
+
             rb.velocity = dir * speed;
 
-            Debug.Log("asd");
-
-                yield return null;
+            yield return null;
         }
     }
-
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log(this.gameObject.name +','+ collision.gameObject.tag);
-
+            isPass = false;
             StopAllCoroutines();
-            rb.velocity = Vector3.zero;
-            
-            ColKnockBack();
-            //CrashAnim(collision.gameObject);
+
+            Invoke("ColKnockBack", 0.05f);
+            //ColKnockBack();
+
+            Debug.Log("충돌!!");
+                
+            isCol = true;
         }
     }
 
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))
+        {
+        }
+    }
 
     // 부딪혔을때 연출
     void CrashAnim(GameObject crashObj)
@@ -342,6 +384,7 @@ public class Car : MonoBehaviour
             StopAllCoroutines();
 
             rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
 
             rb.constraints = RigidbodyConstraints.FreezeRotation;
 
@@ -349,7 +392,7 @@ public class Car : MonoBehaviour
 
             Debug.Log(-curMoveDir);
 
-            Invoke("FreezePos", 0.3f);
+            Invoke("FreezePos", 0.1f);
         }
     }
 
@@ -368,4 +411,3 @@ public class Car : MonoBehaviour
         isMove = false;
     }
 }
-
