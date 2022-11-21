@@ -16,7 +16,7 @@ public class Car : MonoBehaviour
     bool isCol = false;
 
     float sightAngle = 90f;
-    float speed = 15f;
+    float speed = 10f;
 
     public int cornerIndex = 0;
 
@@ -80,34 +80,7 @@ public class Car : MonoBehaviour
         
         
         // 중복 이동 제한 함수
-        if (isPass)
-        {
-            RaycastHit hit;
-            int layerMask = 1 << 6 | 1 << 7 | 1 << 8;
-            if (Physics.Raycast(transform.position, curMoveDir, out hit, 10f, layerMask))
-            {
-                if (hit.transform.CompareTag("Car"))
-                {
-                    if (hit.transform.GetComponent<Car>().isPassing == true)
-                    {
-                        StopAllCoroutines();
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else
-            {
-                rb.velocity = curMoveDir * speed;
-                Debug.Log(curMoveDir);
-            }
-        }
+        
 
         //if (isCol)
         //{
@@ -157,6 +130,38 @@ public class Car : MonoBehaviour
 
                         StartCoroutine(PassCo());
                     });
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isPass)
+        {
+            RaycastHit hit;
+            int layerMask = 1 << 6 | 1 << 7 | 1 << 8;
+            if (Physics.Raycast(transform.position, curMoveDir, out hit, 10f, layerMask))
+            {
+                if (hit.transform.CompareTag("Car"))
+                {
+                    if (hit.transform.GetComponent<Car>().isPassing == true)
+                    {
+                        StopAllCoroutines();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                rb.velocity = curMoveDir * speed;
+                Debug.Log(curMoveDir);
             }
         }
     }
@@ -309,10 +314,12 @@ public class Car : MonoBehaviour
             isPass = false;
             StopAllCoroutines();
 
+            rb.velocity = Vector3.zero;
+
             Invoke("ColKnockBack", 0.05f);
             //ColKnockBack();
 
-            Debug.Log("충돌!!");
+            Debug.Log("충돌!!"+this.gameObject + this.gameObject.transform.position);
                 
             isCol = true;
         }
@@ -411,3 +418,17 @@ public class Car : MonoBehaviour
         isMove = false;
     }
 }
+
+//2022-11-18
+/*
+ * 오늘은 기분이 좋은 날이다.
+ * 왜냐 버그를 고쳤기 때문이다.
+ * 그리고 금요일이기 때문
+ * 냐하 그리고 나는 집에가서 게임을 할거에요
+ * 무엇?
+ * 피퐈
+ * 롤
+ * 롤체
+ * 로아
+ * 오버웣취
+ */

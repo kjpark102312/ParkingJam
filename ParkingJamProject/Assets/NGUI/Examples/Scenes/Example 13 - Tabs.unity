@@ -837,7 +837,7 @@ Transform:
   m_GameObject: {fileID: 55}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0015325671, y: 0.0015325671, z: 0.0015325671}
+  m_LocalScale: {x: 0.004597701, y: 0.004597701, z: 0.004597701}
   m_Children:
   - {fileID: 59}
   - {fileID: 105}
@@ -1562,15 +1562,15 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 2636
-  mHeight: 1318
+  mWidth: 879
+  mHeight: 439
   mDepth: -15
   boundless: 0
   mMat: {fileID: 2100000, guid: 6c2b3cc909d408944b7528b7e39f4d38, type: 2}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2
+  aspectRatio: 2.0022779
   mType: 0
   mFillDirection: 4
   mFillAmount: 1

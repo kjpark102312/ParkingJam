@@ -469,7 +469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -984, y: -0, z: 0}
+  m_LocalPosition: {x: 19, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 67}
@@ -532,7 +532,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 109.96782, z: 0}
+  m_LocalPosition: {x: 7, y: 278.2115, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 57}
@@ -619,7 +619,7 @@ Transform:
   m_GameObject: {fileID: 35}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0015325671, y: 0.0015325671, z: 0.0015325671}
+  m_LocalScale: {x: 0.004597701, y: 0.004597701, z: 0.004597701}
   m_Children:
   - {fileID: 66}
   - {fileID: 848388263}
@@ -1148,7 +1148,7 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
   mWidth: 135
-  mHeight: 1205
+  mHeight: 335
   mDepth: 2
   boundless: 0
   mMat: {fileID: 0}
@@ -1375,12 +1375,12 @@ MonoBehaviour:
   mAlpha: 1
   mAlphaProp: 
   mClipping: 3
-  mClipRange: {x: 50, y: -209, z: 102, w: 1179}
+  mClipRange: {x: 50, y: -209, z: 102, w: 309}
   mClipSoftness: {x: 1, y: 10}
   mDepth: 3
   mSortingOrder: 0
   mSortingLayerName: 
-  mClipOffset: {x: 0, y: 100.03218}
+  mClipOffset: {x: 0, y: -68.21149}
   useSortingOrder: 0
 --- !u!114 &120
 MonoBehaviour:
@@ -2279,7 +2279,7 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 5
   mWidth: 107
-  mHeight: 1177
+  mHeight: 307
   mDepth: 3
   boundless: 0
   mMat: {fileID: 0}
@@ -2367,7 +2367,7 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
   mWidth: 107
-  mHeight: 1177
+  mHeight: 307
   mDepth: 3
   boundless: 0
   mMat: {fileID: 0}
@@ -2584,7 +2584,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710038377}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1016, y: 0, z: 0}
+  m_LocalPosition: {x: 12, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1761466419}
@@ -2604,7 +2604,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 108, y: 1205, z: 0}
+  m_Size: {x: 108, y: 335, z: 0}
   m_Center: {x: 54, y: 0, z: 0}
 --- !u!114 &710038380
 MonoBehaviour:
@@ -2638,7 +2638,7 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
   mWidth: 108
-  mHeight: 1205
+  mHeight: 335
   mDepth: 0
   boundless: 0
   mMat: {fileID: 0}
@@ -3255,7 +3255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848388262}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1126, y: 0, z: 0}
+  m_LocalPosition: {x: -123, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 61}
@@ -3296,7 +3296,7 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
   mWidth: 108
-  mHeight: 1205
+  mHeight: 335
   mDepth: 0
   boundless: 0
   mMat: {fileID: 0}
@@ -3315,7 +3315,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 108, y: 1205, z: 0}
+  m_Size: {x: 108, y: 335, z: 0}
   m_Center: {x: 54, y: 0, z: 0}
 --- !u!114 &848388267
 MonoBehaviour:
@@ -3653,11 +3653,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6500000, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: m_Size.y
-      value: 1171.1974
+      value: 150.64
       objectReference: {fileID: 0}
     - target: {fileID: 6500000, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: m_Center.y
-      value: -0.348938
+      value: -29.403273
       objectReference: {fileID: 0}
     - target: {fileID: 6500002, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: m_Size.x
@@ -3665,7 +3665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6500002, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: m_Size.y
-      value: 1183
+      value: 313
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: mWidth
@@ -3673,11 +3673,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: mHeight
-      value: 1173
+      value: 303
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: aspectRatio
-      value: 0.021978023
+      value: 0.013640239
       objectReference: {fileID: 0}
     - target: {fileID: 11400006, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: disabledColor.b
@@ -3697,11 +3697,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400008, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: mSize
-      value: 0.99845
+      value: 0.48000002
       objectReference: {fileID: 0}
     - target: {fileID: 11400008, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: mValue
-      value: 0.693606
+      value: 0.69298553
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: mWidth
@@ -4486,11 +4486,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6500000, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: m_Size.y
-      value: 1171.1974
+      value: 150.64
       objectReference: {fileID: 0}
     - target: {fileID: 6500000, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: m_Center.y
-      value: -0.348938
+      value: -29.403273
       objectReference: {fileID: 0}
     - target: {fileID: 6500002, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: m_Size.x
@@ -4498,7 +4498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6500002, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: m_Size.y
-      value: 1183
+      value: 313
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: uiCamera
@@ -4510,11 +4510,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: mHeight
-      value: 1173
+      value: 303
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: aspectRatio
-      value: 0.021978023
+      value: 0.013640239
       objectReference: {fileID: 0}
     - target: {fileID: 11400006, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: disabledColor.b
@@ -4534,11 +4534,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400008, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: mSize
-      value: 0.99845
+      value: 0.48000002
       objectReference: {fileID: 0}
     - target: {fileID: 11400008, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: mValue
-      value: 0.693606
+      value: 0.69298553
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: df7390d50d06a4b4b893085286142266, type: 3}
       propertyPath: mWidth
@@ -4705,7 +4705,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607436409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 109.96782, z: 0}
+  m_LocalPosition: {x: 7, y: 278.2115, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 830441778}
@@ -4803,12 +4803,12 @@ MonoBehaviour:
   mAlpha: 1
   mAlphaProp: 
   mClipping: 3
-  mClipRange: {x: 50, y: -209, z: 102, w: 1179}
+  mClipRange: {x: 50, y: -209, z: 102, w: 309}
   mClipSoftness: {x: 1, y: 10}
   mDepth: 4
   mSortingOrder: 0
   mSortingLayerName: 
-  mClipOffset: {x: 0, y: 100.03218}
+  mClipOffset: {x: 0, y: -68.21149}
   useSortingOrder: 0
 --- !u!4 &1675588937 stripped
 Transform:
@@ -4906,7 +4906,7 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
   mWidth: 135
-  mHeight: 1205
+  mHeight: 335
   mDepth: 2
   boundless: 0
   mMat: {fileID: 0}
