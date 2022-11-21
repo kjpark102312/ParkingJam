@@ -376,7 +376,7 @@ Transform:
   m_GameObject: {fileID: 333529000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.004597701, y: 0.004597701, z: 0.004597701}
+  m_LocalScale: {x: 0.004282655, y: 0.004282655, z: 0.004282655}
   m_Children:
   - {fileID: 1923018737}
   - {fileID: 1538171773}
@@ -2983,8 +2983,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0.3432836, g: 0.3432836, b: 0.3432836, a: 0.36078432}
   mPivot: 4
-  mWidth: 245
-  mHeight: 435
+  mWidth: 263
+  mHeight: 467
   mDepth: -2
   boundless: 0
   mMat: {fileID: 0}
@@ -3120,8 +3120,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 245
-  mHeight: 435
+  mWidth: 263
+  mHeight: 467
   mDepth: -3
   boundless: 0
   mMat: {fileID: 0}

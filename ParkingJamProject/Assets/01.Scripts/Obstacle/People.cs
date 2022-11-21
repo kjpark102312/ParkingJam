@@ -12,13 +12,11 @@ public class People : MonoBehaviour
 
     NavMeshAgent agent;
 
-    UIManager uIManager;
 
     public Action onCollisionCar = () => { };
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        uIManager = FindObjectOfType<UIManager>();
     }
 
     void Update()
@@ -64,7 +62,7 @@ public class People : MonoBehaviour
                 collision.gameObject.GetComponent<Car>().isMove = false;
                 collision.gameObject.GetComponent<Car>().isGameOver = true;
 
-                uIManager.GameOverTween();
+                UIManager.Instance.GameOverTween();
 
                 onCollisionCar();
                 
