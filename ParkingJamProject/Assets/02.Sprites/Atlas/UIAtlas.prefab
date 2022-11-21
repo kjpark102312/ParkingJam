@@ -45,9 +45,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: f48a74f9022ca154587ce6171661dfb2, type: 2}
   mSprites:
+  - name: button_corner_rectangle4_1
+    x: 0
+    y: 148
+    width: 384
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: button_corner_square1_19
+    x: 236
+    y: 384
+    width: 128
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: button_square_1
+    x: 0
+    y: 19
+    width: 128
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: FadeBackGround
     x: 0
-    y: 21
+    y: 277
     width: 235
     height: 235
     borderLeft: 0
@@ -58,6 +97,110 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: icon_line_arrow_1
+    x: 385
+    y: 163
+    width: 113
+    height: 114
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 7
+    paddingRight: 8
+    paddingTop: 7
+    paddingBottom: 7
+  - name: icon_line_arrow_4
+    x: 385
+    y: 402
+    width: 98
+    height: 110
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 15
+    paddingRight: 15
+    paddingTop: 9
+    paddingBottom: 9
+  - name: icon_line_common_13
+    x: 296
+    y: 51
+    width: 60
+    height: 96
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 34
+    paddingRight: 34
+    paddingTop: 16
+    paddingBottom: 16
+  - name: icon_line_device_1
+    x: 385
+    y: 49
+    width: 97
+    height: 113
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 15
+    paddingRight: 16
+    paddingTop: 7
+    paddingBottom: 8
+  - name: icon_line_media_13
+    x: 236
+    y: 294
+    width: 122
+    height: 89
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 20
+    paddingBottom: 19
+  - name: icon_line_media_15
+    x: 225
+    y: 44
+    width: 70
+    height: 103
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 29
+    paddingRight: 29
+    paddingTop: 12
+    paddingBottom: 13
+  - name: icon_line_media_16
+    x: 129
+    y: 44
+    width: 95
+    height: 103
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 17
+    paddingTop: 13
+    paddingBottom: 12
+  - name: icon_line_tool_2
+    x: 365
+    y: 278
+    width: 124
+    height: 123
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 2
+    paddingTop: 2
+    paddingBottom: 3
   mPixelSize: 1
   mReplacement: {fileID: 0}
   mCoordinates: 0
