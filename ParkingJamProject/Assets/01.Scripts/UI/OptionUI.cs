@@ -7,24 +7,29 @@ public class OptionUI : MonoBehaviour
 
     public UIButton returnButton;
 
-
+    
     TweenPosition tp;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
-
         tp = GetComponent<TweenPosition>();
 
         returnButton.onClick.Add(new EventDelegate(() =>
         {
-            UIManager.Instance.GetUI(UIPanels.PauseUI).SetActive(true);
+            UITweener tween = TweenPosition.Begin(UIManager.Instance.GetUI(UIPanels.PauseUI), 0.2f, new Vector3(0, 0, 0));
 
             tp.enabled = true;
             tp.PlayReverse();
 
-
             Debug.Log("Asd");   
         }));
+
+        
+
+
     }
 
     // Update is called once per frame
