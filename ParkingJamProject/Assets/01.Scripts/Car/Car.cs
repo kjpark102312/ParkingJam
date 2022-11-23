@@ -12,7 +12,7 @@ public class Car : MonoBehaviour
     public bool isMove = false;
     public bool isPass = false;
     public bool isGameOver = false;
-    bool isPassing = false;
+    public bool isPassing = false;
     bool isCol = false;
 
     float sightAngle = 90f;
@@ -139,7 +139,7 @@ public class Car : MonoBehaviour
         if (isPass)
         {
             RaycastHit hit;
-            int layerMask = 1 << 6 | 1 << 7 | 1 << 8;
+            int layerMask = 1 << 6 | 1 << 7 | 1 << 9;
             if (Physics.Raycast(transform.position, curMoveDir, out hit, 10f, layerMask))
             {
                 if (hit.transform.CompareTag("Car"))
@@ -180,7 +180,7 @@ public class Car : MonoBehaviour
             distance = targetCorner.position.x - transform.position.x;
         }
 
-        int layerMask = 1 << 6 | 1 << 7 | 1 << 8;
+        int layerMask = 1 << 6 | 1 << 7 | 1 << 9;
 
         Debug.DrawLine(transform.position, curMoveDir * (distance - 2f), Color.red);
 

@@ -30,10 +30,11 @@ public class PauseUI : MonoBehaviour
         {
             UITweener tween = TweenPosition.Begin(this.gameObject, 0.2f, new Vector3(-406f, 0, 0));
 
-            for (int i = 1; i < widgetTps.Length; i++)
+            for (int i = 0; i < widgetTps.Length; i++)
             {
                 widgetTps[i].enabled = true;
                 widgetTps[i].PlayForward();
+                Debug.Log(i);
             }
             
             optionPaneltp.enabled = true;

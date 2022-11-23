@@ -23,8 +23,6 @@ public class OptionUI : MonoBehaviour
 
             tp.enabled = true;
             tp.PlayReverse();
-
-            Debug.Log("Asd");   
         }));
 
         
