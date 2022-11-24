@@ -12,10 +12,14 @@ public class NextStageUI : MonoBehaviour
 
     [SerializeField] TweenAlpha backgroundTa = null;
 
+
     void Start()
     {
         nextStageButton.onClick.Add(new EventDelegate(() =>
         {
+            StageManager.Instance.curStageIndex++;
+            PlayerPrefs.SetInt("Stage", StageManager.Instance.curStageIndex++);
+
             LoadSceneManager.Instance.NextScene();
         }));
 

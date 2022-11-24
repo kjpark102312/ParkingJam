@@ -13,6 +13,12 @@ public class TimeLimitCar : Car
 
     float time = 15f;
 
+    private void Start()
+    {
+        timer = FindObjectOfType<CarTimer>().gameObject;
+        timerSprite = timer.transform.GetChild(0).GetComponent<UISprite>();
+    }
+
     void Update()
     {
 

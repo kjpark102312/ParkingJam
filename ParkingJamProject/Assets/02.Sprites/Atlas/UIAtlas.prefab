@@ -176,8 +176,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_line_arrow_1
-    x: 900
-    y: 910
+    x: 382
+    y: 781
     width: 113
     height: 114
     borderLeft: 0
@@ -189,8 +189,8 @@ MonoBehaviour:
     paddingTop: 7
     paddingBottom: 7
   - name: icon_line_arrow_4
-    x: 480
-    y: 785
+    x: 899
+    y: 527
     width: 98
     height: 110
     borderLeft: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
     paddingTop: 9
     paddingBottom: 9
   - name: icon_line_common_13
-    x: 385
+    x: 481
     y: 412
     width: 60
     height: 96
@@ -215,7 +215,7 @@ MonoBehaviour:
     paddingTop: 16
     paddingBottom: 16
   - name: icon_line_device_1
-    x: 382
+    x: 496
     y: 782
     width: 97
     height: 113
@@ -229,7 +229,7 @@ MonoBehaviour:
     paddingBottom: 8
   - name: icon_line_media_10
     x: 899
-    y: 543
+    y: 432
     width: 105
     height: 94
     borderLeft: 0
@@ -254,8 +254,8 @@ MonoBehaviour:
     paddingTop: 20
     paddingBottom: 19
   - name: icon_line_media_16
-    x: 899
-    y: 439
+    x: 385
+    y: 405
     width: 95
     height: 103
     borderLeft: 0
@@ -266,6 +266,19 @@ MonoBehaviour:
     paddingRight: 17
     paddingTop: 13
     paddingBottom: 12
+  - name: icon_line_media_49
+    x: 900
+    y: 908
+    width: 79
+    height: 116
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 24
+    paddingRight: 25
+    paddingTop: 6
+    paddingBottom: 6
   - name: icon_line_tool_2
     x: 257
     y: 772

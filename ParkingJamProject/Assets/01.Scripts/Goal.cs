@@ -17,6 +17,13 @@ public class Goal : MonoBehaviour
     private void Start()
     {
         nextStageUI = FindObjectOfType<NextStageUI>();
+
+        GameObject effect = GameObject.Find("ParticleFx");
+
+        for (int i = 0; i < 2; i++)
+        {
+            particles[i] = effect.transform.GetChild(i).gameObject;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

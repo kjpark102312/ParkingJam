@@ -10,6 +10,7 @@ public class PauseUI : MonoBehaviour
     public UIButton returnButton;
     private TweenPosition thisTp;
 
+
     public TweenPosition[] widgetTps;
     void Start()
     {
@@ -44,8 +45,13 @@ public class PauseUI : MonoBehaviour
 
         returnButton.onClick.Add(new EventDelegate(() =>
         {
+
             UITweener tween = TweenPosition.Begin(this.gameObject, 0.2f, new Vector3(406f, 0, 0));
+
+
             UIManager.Instance.GetUI(UIPanels.BackGround).GetComponent<TweenPosition>().PlayReverse();
+            UIManager.Instance.GetUI(UIPanels.OptionUI).GetComponent<TweenPosition>().PlayReverse();
+            
             UIManager.Instance.GetUI(UIPanels.LeftUI).SetActive(true);
             UIManager.Instance.GetUI(UIPanels.RightUI).SetActive(true);
             UIManager.Instance.GetUI(UIPanels.LvUI).SetActive(true);

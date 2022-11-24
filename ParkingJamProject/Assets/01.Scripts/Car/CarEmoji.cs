@@ -6,6 +6,12 @@ public class CarEmoji : MonoBehaviour
 {
     public Emoji[] emoji;
 
+    private void Start()
+    {
+        emoji = FindObjectsOfType<Emoji>();
+    }
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.transform.CompareTag("Car"))
