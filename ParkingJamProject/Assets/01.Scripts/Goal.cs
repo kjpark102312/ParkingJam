@@ -32,7 +32,7 @@ public class Goal : MonoBehaviour
         {
             goalCount++;
             other.gameObject.GetComponent<Car>().isPassing = false;
-            other.gameObject.SetActive(false);
+            //other.gameObject.SetActive(false);
 
             if (goalCount == carParents.childCount)
             {

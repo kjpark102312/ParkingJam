@@ -161,7 +161,6 @@ public class Car : MonoBehaviour
             else
             {
                 rb.velocity = curMoveDir * speed;
-                Debug.Log(curMoveDir);
             }
         }
     }
@@ -218,7 +217,6 @@ public class Car : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, targetCorner.position) <= 1)
             {
-                Debug.Log(transform.localEulerAngles.y);
                 transform.DORotate(new Vector3(0f, transform.localEulerAngles.y + 90, 0), 0.15f);
 
                 if (cornerIndex < corners.Length)
@@ -227,8 +225,6 @@ public class Car : MonoBehaviour
                     cornerIndex = cornerIndex + 1;
                 }
             }
-
-            Debug.Log("PASS!!");
 
             rb.velocity = -transform.right.normalized * speed;
 
@@ -299,8 +295,6 @@ public class Car : MonoBehaviour
         CheckPass();
         while (true)
         {
-            Debug.LogError("¾Æ¾Æ¾Æ");
-
             rb.velocity = dir * speed;
 
             yield return null;
