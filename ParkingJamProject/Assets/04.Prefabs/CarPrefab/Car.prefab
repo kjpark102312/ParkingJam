@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1967872835971984940}
   - component: {fileID: 1967872835971984942}
   - component: {fileID: 1967872835971984941}
+  - component: {fileID: 7710458507243271920}
   m_Layer: 6
   m_Name: Car
   m_TagString: Car
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967872835971984938}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 59.95, y: 0.798, z: -60.068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -55,6 +56,9 @@ MonoBehaviour:
   - {fileID: 0}
   targetCorner: {fileID: 0}
   isMove: 0
+  isPass: 0
+  isGameOver: 0
+  isPassing: 0
   cornerIndex: 0
   curMoveDir: {x: 0, y: 0, z: 0}
 --- !u!65 &1967872835971984942
@@ -86,6 +90,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &7710458507243271920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967872835971984938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ac4380b0bfefd4a996468c0eca9d88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emoji:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &1967872836641863346
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -41,13 +41,13 @@ public class StageManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        curStageIndex = PlayerPrefs.GetInt("Stage");
     }
 
     void Start()
     {
         stages = Resources.LoadAll<GameObject>("Stages");
-
-        curStageIndex = PlayerPrefs.GetInt("Stage");
 
         if(PlayerPrefs.GetInt("Stage") >= stages.Length)
         {

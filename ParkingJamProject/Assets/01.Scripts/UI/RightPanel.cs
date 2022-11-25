@@ -34,6 +34,8 @@ public class RightPanel : MonoBehaviour
 
         challengeButton.onClick.Add(new EventDelegate(() =>
         {
+            challengePaneltp.enabled = true;
+
             UIManager.Instance.GetUI(UIPanels.BackGround).SetActive(true);
             UIManager.Instance.GetUI(UIPanels.BackGround).GetComponent<TweenPosition>().PlayForward();
 
