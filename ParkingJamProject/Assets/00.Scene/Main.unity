@@ -12890,7 +12890,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 2
-  mWidth: 406
+  mWidth: 405
   mHeight: 720
   mDepth: 0
   boundless: 0
@@ -14207,7 +14207,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 0
-  mWidth: 406
+  mWidth: 405
   mHeight: 720
   mDepth: 0
   boundless: 0
