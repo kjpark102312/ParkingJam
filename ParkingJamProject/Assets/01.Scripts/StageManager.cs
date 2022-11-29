@@ -79,6 +79,8 @@ public class StageManager : MonoBehaviour
         else if (PlayerPrefs.GetInt("Stage") % 3 == 0)
         {
             Instantiate(stagesDic["HardStage" + PlayerPrefs.GetInt("Stage") / 3], Vector3.zero, Quaternion.identity);
+
+            PlayerPrefs.SetInt("Stage", PlayerPrefs.GetInt("Stage") - 1);
         }
         else
         {
