@@ -18,10 +18,14 @@ public class MapTool : EditorWindow
     private bool paintMode = false;
     private bool showLevelOptions = false;
     private bool showBuildableObjects = false;
+    private bool carAngel = false;
+    private bool carAngel2 = false;
+
+    private GameObject curEditMap;
     #endregion
 
     #region UI
-    // The window is selected if it already exists, else it's created.
+
     [MenuItem("Window/My Map Editor")]
     private static void ShowWindow()
     {
@@ -30,7 +34,7 @@ public class MapTool : EditorWindow
 
     void OnFocus()
     {
-        SceneView.onSceneGUIDelegate -= this.OnSceneGUI; // Don't add twice
+        SceneView.onSceneGUIDelegate -= this.OnSceneGUI;
         SceneView.onSceneGUIDelegate += this.OnSceneGUI;
 
         RefreshPalette(); // 팔레트 비워주고 다시 채워주는 함수 
@@ -47,6 +51,10 @@ public class MapTool : EditorWindow
             EditorGUILayout.Space();
 
             showBuildableObjects = EditorGUILayout.Foldout(showBuildableObjects, "설치물");
+            EditorGUILayout.BeginHorizontal();
+            carAngel = GUILayout.Toggle(carAngel, "0, 180", "Button", GUILayout.Height(30f));
+            carAngel2 = GUILayout.Toggle(carAngel2, "90, -90", "Button", GUILayout.Height(30f));
+            EditorGUILayout.EndHorizontal();
 
             List<GUIContent> paletteIcons = new List<GUIContent>();
             foreach (GameObject prefab in palette)
@@ -60,15 +68,21 @@ public class MapTool : EditorWindow
                 paletteIndex = GUILayout.SelectionGrid(paletteIndex, paletteIcons.ToArray(), 6);
             }
 
+
             EditorGUILayout.BeginHorizontal();
 
             if (GUILayout.Button("새로운 맵 불러오기"))
             {
                 GameObject prefab = AssetDatabase.LoadAssetAtPath("Assets/Editor Default Resources/NormalStageTemplate.prefab", typeof(GameObject)) as GameObject;
                 GameObject gameObject = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
-
+                curEditMap = gameObject;
             }
-            GUILayout.Button("지금 맵 저장하기");
+            if(GUILayout.Button("지금 맵 저장하기"))
+            {
+                Debug.Log(StageManager.Instance.stages.Length);
+                PrefabUtility.UnpackPrefabInstance(curEditMap, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
+                PrefabUtility.SaveAsPrefabAssetAndConnect(curEditMap, $"Assets/Resources/Stages/Stage{0}.prefab", InteractionMode.AutomatedAction);
+            }
             EditorGUILayout.EndHorizontal();
         }
     }
@@ -133,9 +147,18 @@ public class MapTool : EditorWindow
         {
             GameObject prefab = palette[paletteIndex];
             GameObject gameObject = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
-
+            gameObject.transform.SetParent(curEditMap.transform);
 
             gameObject.transform.position = new Vector3(cellCenter.x, 0.588f, cellCenter.y);
+
+            if (carAngel && carAngel2)
+                gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+            else if(!carAngel && !carAngel2)
+                gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
+            else if(!carAngel && carAngel2)
+                gameObject.transform.eulerAngles = new Vector3(0, 90, 0);
+            else
+                gameObject.transform.eulerAngles = new Vector3(0, -90, 0);
 
             // 컨트롤 z 커맨드
             Undo.RegisterCreatedObjectUndo(gameObject, "");

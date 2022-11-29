@@ -49,6 +49,8 @@ public class StageManager : MonoBehaviour
     {
         stages = Resources.LoadAll<GameObject>("Stages");
 
+        Debug.Log(PlayerPrefs.GetInt("Stage"));
+
         if(PlayerPrefs.GetInt("Stage") >= stages.Length)
         {
             PlayerPrefs.SetInt("Stage", 0);

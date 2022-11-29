@@ -38,7 +38,6 @@ public class Goal : MonoBehaviour
             {
                 Invoke("GoalEffect", 1f);
                 nextStageUI.OnNextStageUI();
-                //LoadSceneManager.Instance.NextScene();
             }
         }
     }

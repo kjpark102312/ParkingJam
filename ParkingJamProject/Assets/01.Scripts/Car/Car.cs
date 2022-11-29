@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Car : MonoBehaviour
 {
+
+    #region Attributes
     public Transform passPos;
     public Transform[] corners;
     public Transform targetCorner;
@@ -25,6 +27,8 @@ public class Car : MonoBehaviour
     public Vector3 curMoveDir;
 
     People[] people;
+    #endregion
+
 
     private void Start()
     {
