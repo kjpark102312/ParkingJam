@@ -71,19 +71,25 @@ public class MapTool : EditorWindow
 
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("새로운 맵 불러오기"))
+            if (GUILayout.Button("일반 맵 불러오기"))
             {
                 GameObject prefab = AssetDatabase.LoadAssetAtPath("Assets/Editor Default Resources/NormalStageTemplate.prefab", typeof(GameObject)) as GameObject;
                 GameObject gameObject = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
                 curEditMap = gameObject;
             }
-            if(GUILayout.Button("지금 맵 저장하기"))
+            if (GUILayout.Button("하드 맵 불러오기"))
+            {
+                GameObject prefab = AssetDatabase.LoadAssetAtPath("Assets/Editor Default Resources/HardmodeOrLongStage.prefab", typeof(GameObject)) as GameObject;
+                GameObject gameObject = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+                curEditMap = gameObject;
+            }
+            EditorGUILayout.EndHorizontal();
+            if (GUILayout.Button("지금 맵 저장하기"))
             {
                 Debug.Log(StageManager.Instance.stages.Length);
                 PrefabUtility.UnpackPrefabInstance(curEditMap, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
                 PrefabUtility.SaveAsPrefabAssetAndConnect(curEditMap, $"Assets/Resources/Stages/Stage{0}.prefab", InteractionMode.AutomatedAction);
             }
-            EditorGUILayout.EndHorizontal();
         }
     }
 
@@ -147,7 +153,7 @@ public class MapTool : EditorWindow
         {
             GameObject prefab = palette[paletteIndex];
             GameObject gameObject = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
-            gameObject.transform.SetParent(curEditMap.transform);
+            gameObject.transform.SetParent(curEditMap.transform.Find("Car").transform);
 
             gameObject.transform.position = new Vector3(cellCenter.x, 0.588f, cellCenter.y);
 
