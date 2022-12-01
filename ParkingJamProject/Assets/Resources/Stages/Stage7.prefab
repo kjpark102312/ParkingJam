@@ -38,9 +38,8 @@ Transform:
   - {fileID: 426939017114961490}
   - {fileID: 426939017919318597}
   - {fileID: 426939017996320385}
-  - {fileID: 7104880734258339167}
   m_Father: {fileID: 8465291023977880038}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5405560966463729537
 GameObject:
@@ -135,7 +134,7 @@ Transform:
   - {fileID: 5405560967867543195}
   - {fileID: 5964714105212952472}
   m_Father: {fileID: 8465291023977880038}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5405560967471846767
 GameObject:
@@ -459,6 +458,7 @@ Transform:
   - {fileID: 8231053314904074543}
   - {fileID: 6069578879644184224}
   - {fileID: 6069578879478764682}
+  - {fileID: 7104880734258339167}
   - {fileID: 5405560966854500637}
   - {fileID: 8654504946228757503}
   m_Father: {fileID: 0}
@@ -518,7 +518,7 @@ PrefabInstance:
     - target: {fileID: 5542258882598131399, guid: 5d9270381ceae73458fb1f0f863bdc77, type: 3}
       propertyPath: carParents
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8654504946228757503}
     - target: {fileID: 5542258882598131401, guid: 5d9270381ceae73458fb1f0f863bdc77, type: 3}
       propertyPath: m_Name
       value: Goal (1)
@@ -1897,7 +1897,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8654504946228757503}
+    m_TransformParent: {fileID: 8465291023977880038}
     m_Modifications:
     - target: {fileID: 8606881243215357521, guid: 813c719edcf5aa542acc5d11adb49aab, type: 3}
       propertyPath: m_Name
@@ -1905,19 +1905,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8951493937728765163, guid: 813c719edcf5aa542acc5d11adb49aab, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8951493937728765163, guid: 813c719edcf5aa542acc5d11adb49aab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.9891815
+      value: 59
       objectReference: {fileID: 0}
     - target: {fileID: 8951493937728765163, guid: 813c719edcf5aa542acc5d11adb49aab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.1482141
+      value: 0.58799994
       objectReference: {fileID: 0}
     - target: {fileID: 8951493937728765163, guid: 813c719edcf5aa542acc5d11adb49aab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.1
+      value: -63.480618
       objectReference: {fileID: 0}
     - target: {fileID: 8951493937728765163, guid: 813c719edcf5aa542acc5d11adb49aab, type: 3}
       propertyPath: m_LocalRotation.w

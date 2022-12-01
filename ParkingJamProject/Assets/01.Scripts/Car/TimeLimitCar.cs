@@ -19,6 +19,8 @@ public class TimeLimitCar : Car
     private void Start()
     {
         timer = FindObjectOfType<CarTimer>().gameObject;
+        timer.GetComponent<UIWidget>().alpha = 1;
+
         timerSprite = timer.transform.GetChild(0).GetComponent<UISprite>();
 
         for (int i = 0; i < carParents.transform.childCount; i++)

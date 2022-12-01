@@ -2919,7 +2919,7 @@ PrefabInstance:
     - target: {fileID: 5542258882598131399, guid: 5d9270381ceae73458fb1f0f863bdc77, type: 3}
       propertyPath: carParents
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6479516033888443476}
     - target: {fileID: 5542258882598131401, guid: 5d9270381ceae73458fb1f0f863bdc77, type: 3}
       propertyPath: m_Name
       value: Goal (1)

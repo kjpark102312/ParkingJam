@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
+public enum Hardmode
+{
+    limitCountMode,
+    limitTimeMode,
+}
+
 public class StageManager : MonoBehaviour
 {
    
@@ -48,9 +54,11 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         stages = Resources.LoadAll<GameObject>("Stages");
+
+        PlayerPrefs.SetInt("Stage", 8);
         if (PlayerPrefs.GetInt("Stage") >= stages.Length)
         {
-            PlayerPrefs.SetInt("Stage", 0);
+            PlayerPrefs.SetInt("Stage", 6);
             curStageIndex = 0;
         }
 
@@ -84,7 +92,6 @@ public class StageManager : MonoBehaviour
                     return;
                 }
             }
-            
 
             Instantiate(stagesDic["HardStage" + PlayerPrefs.GetInt("Stage") / 3], Vector3.zero, Quaternion.identity);
 

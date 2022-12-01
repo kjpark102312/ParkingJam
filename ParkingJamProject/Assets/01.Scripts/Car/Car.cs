@@ -27,6 +27,8 @@ public class Car : MonoBehaviour
     public Vector3 curMoveDir;
 
     People[] people;
+
+    Stage curstageInfo;
     #endregion
 
 
@@ -34,6 +36,9 @@ public class Car : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         people = FindObjectsOfType<People>();
+        curstageInfo = FindObjectOfType<Stage>();
+
+
 
         for (int i = 0; i < people.Length; i++)
         {
@@ -94,8 +99,8 @@ public class Car : MonoBehaviour
         // Pass 했을때 자동차객체 위치 및 로테이션 제어문
         if (targetCorner != null && !isPassing)
         {
-            if (Mathf.Floor(transform.localPosition.x) == Mathf.Floor(targetCorner.localPosition.x)
-                || Mathf.Floor(transform.localPosition.z) == Mathf.Floor(targetCorner.localPosition.z))
+            if (Mathf.Floor(transform.position.x) == Mathf.Floor(targetCorner.localPosition.x)
+                || Mathf.Floor(transform.position.z) == Mathf.Floor(targetCorner.localPosition.z))
             {
                 StopAllCoroutines();
                 Pass();
@@ -115,11 +120,11 @@ public class Car : MonoBehaviour
 
                 if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
                 {
-                    transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, targetCorner.localPosition.z);
+                    transform.position = new Vector3(transform.position.x, transform.position.y, targetCorner.position.z);
                 }
                 else
                 {
-                    transform.localPosition = new Vector3(targetCorner.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+                    transform.position = new Vector3(targetCorner.position.x, transform.position.y, transform.position.z);
                 }
 
                 transform.DORotate(new Vector3(0f, angle, 0), 0.2f).OnComplete(() =>
@@ -240,6 +245,14 @@ public class Car : MonoBehaviour
     // 스테이지 안에서 MoveCo 코루틴을 제어하는 함수
     public void Move(Vector3 dir)
     {
+        if(curstageInfo.mode == Stage.StageMode.limitMove)
+        {
+            if (curstageInfo.moveCount < 0)
+            {
+                return;
+            }
+        }
+
         float dot = Vector3.Dot(dir.normalized, -transform.right.normalized);
 
         float theta = Mathf.Acos(dot) * (180 / Mathf.PI);
@@ -320,13 +333,6 @@ public class Car : MonoBehaviour
             Debug.Log("충돌!!"+this.gameObject + this.gameObject.transform.position);
                 
             isCol = true;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Obstacle"))
-        {
         }
     }
 
@@ -416,17 +422,3 @@ public class Car : MonoBehaviour
         isMove = false;
     }
 }
-
-//2022-11-18
-/*
- * 오늘은 기분이 좋은 날이다.
- * 왜냐 버그를 고쳤기 때문이다.
- * 그리고 금요일이기 때문
- * 냐하 그리고 나는 집에가서 게임을 할거에요
- * 무엇?
- * 피퐈
- * 롤
- * 롤체
- * 로아
- * 오버웣취
- */
