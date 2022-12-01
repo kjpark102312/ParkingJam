@@ -3526,6 +3526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lvText: {fileID: 1020202057}
+  moveCount: {fileID: 0}
 --- !u!1 &714345091
 GameObject:
   m_ObjectHideFlags: 0
