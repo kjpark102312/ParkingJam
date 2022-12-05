@@ -59,19 +59,6 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button_corner_rectangle1_1
-    x: 0
-    y: 403
-    width: 384
-    height: 128
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: button_corner_rectangle3_1
     x: 236
     y: 639
     width: 384
@@ -84,9 +71,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: button_corner_rectangle4_1
+  - name: button_corner_rectangle3_1
     x: 257
     y: 896
+    width: 384
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: button_corner_rectangle4_1
+    x: 621
+    y: 767
     width: 384
     height: 128
     borderLeft: 0
@@ -111,19 +111,6 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button_oval
-    x: 621
-    y: 638
-    width: 384
-    height: 128
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: button_oval_3
     x: 385
     y: 509
     width: 384
@@ -136,9 +123,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: button_oval_6
+  - name: button_oval_3
     x: 621
-    y: 767
+    y: 638
+    width: 384
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: button_oval_6
+    x: 0
+    y: 403
     width: 384
     height: 128
     borderLeft: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: icon_line_arrow_1
-    x: 382
+    x: 504
     y: 781
     width: 113
     height: 114
@@ -190,7 +190,7 @@ MonoBehaviour:
     paddingBottom: 7
   - name: icon_line_arrow_4
     x: 899
-    y: 527
+    y: 413
     width: 98
     height: 110
     borderLeft: 0
@@ -202,8 +202,8 @@ MonoBehaviour:
     paddingTop: 9
     paddingBottom: 9
   - name: icon_line_common_13
-    x: 481
-    y: 412
+    x: 0
+    y: 306
     width: 60
     height: 96
     borderLeft: 0
@@ -215,8 +215,8 @@ MonoBehaviour:
     paddingTop: 16
     paddingBottom: 16
   - name: icon_line_device_1
-    x: 496
-    y: 782
+    x: 899
+    y: 524
     width: 97
     height: 113
     borderLeft: 0
@@ -227,9 +227,35 @@ MonoBehaviour:
     paddingRight: 16
     paddingTop: 7
     paddingBottom: 8
+  - name: icon_line_game_29
+    x: 257
+    y: 774
+    width: 121
+    height: 121
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 4
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 4
+  - name: icon_line_game_30
+    x: 900
+    y: 903
+    width: 121
+    height: 121
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 4
+    paddingRight: 3
+    paddingTop: 4
+    paddingBottom: 3
   - name: icon_line_media_10
-    x: 899
-    y: 432
+    x: 385
+    y: 414
     width: 105
     height: 94
     borderLeft: 0
@@ -254,7 +280,7 @@ MonoBehaviour:
     paddingTop: 20
     paddingBottom: 19
   - name: icon_line_media_16
-    x: 385
+    x: 491
     y: 405
     width: 95
     height: 103
@@ -267,8 +293,8 @@ MonoBehaviour:
     paddingTop: 13
     paddingBottom: 12
   - name: icon_line_media_49
-    x: 900
-    y: 908
+    x: 385
+    y: 297
     width: 79
     height: 116
     borderLeft: 0
@@ -280,7 +306,7 @@ MonoBehaviour:
     paddingTop: 6
     paddingBottom: 6
   - name: icon_line_tool_2
-    x: 257
+    x: 379
     y: 772
     width: 124
     height: 123
