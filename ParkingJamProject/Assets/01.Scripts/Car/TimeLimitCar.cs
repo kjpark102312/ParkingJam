@@ -11,13 +11,15 @@ public class TimeLimitCar : Car
     [SerializeField] UISprite timerSprite;
 
     public List<GameObject> targetCars = new List<GameObject>();
-
-    float time = 15f;
+    public float stageTime;
+    public float time = 15f;
 
     int passCarCount = 0;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         timer = FindObjectOfType<CarTimer>().gameObject;
         timer.GetComponent<UIWidget>().alpha = 1;
 
@@ -29,8 +31,10 @@ public class TimeLimitCar : Car
         }
     }
 
-    void Update()
+    protected override void Update()
     {
+        base .Update();
+
         Vector3 screenPos = UICamera.mainCamera.ViewportToWorldPoint(Camera.main.WorldToViewportPoint(transform.position));
 
         timer.transform.position = new Vector3(screenPos.x, screenPos.y, 0);
@@ -45,7 +49,8 @@ public class TimeLimitCar : Car
                     {
                         Debug.Log("PassCount");
 
-                        targetCars.RemoveAt(i); 
+                        targetCars.RemoveAt(i);
+                        carParents.transform.GetChild(i).parent = null;
 
                         time += 0.5f;   
                         passCarCount++;
@@ -53,9 +58,12 @@ public class TimeLimitCar : Car
                 }
             }
 
+
+            if(carParents.transform.childCount == 0)
+                return;
             time -= Time.deltaTime;
 
-            timerSprite.fillAmount = time / 15;
+            timerSprite.fillAmount = time / stageTime;
 
             if (time <= 0)
             {

@@ -7,7 +7,7 @@ public class InGameUI : MonoBehaviour
 {
 
     [SerializeField] UILabel lvText;
-    [SerializeField] UILabel moveCount;
+    public UILabel moveCount;
 
     Stage stage; 
     // Start is called before the first frame update

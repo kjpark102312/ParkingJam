@@ -1324,13 +1324,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223111031}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 247, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -112.999985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1837560696}
-  m_Father: {fileID: 253446505}
-  m_RootOrder: 3
+  m_Father: {fileID: 696801666}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &223111033
 MonoBehaviour:
@@ -1643,7 +1643,6 @@ Transform:
   - {fileID: 2133306584}
   - {fileID: 1303121144}
   - {fileID: 1083204368}
-  - {fileID: 223111032}
   m_Father: {fileID: 296703967}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3452,7 +3451,7 @@ GameObject:
   - component: {fileID: 696801667}
   - component: {fileID: 696801668}
   m_Layer: 8
-  m_Name: LvUI
+  m_Name: IngameUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3470,6 +3469,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1020202056}
+  - {fileID: 223111032}
   m_Father: {fileID: 296703967}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3526,7 +3526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lvText: {fileID: 1020202057}
-  moveCount: {fileID: 0}
+  moveCount: {fileID: 1837560697}
 --- !u!1 &714345091
 GameObject:
   m_ObjectHideFlags: 0
@@ -8568,7 +8568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1837560696
 Transform:
   m_ObjectHideFlags: 0

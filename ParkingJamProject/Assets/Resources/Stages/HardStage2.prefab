@@ -401,6 +401,9 @@ MonoBehaviour:
   mode: 0
   limitMoveUI: {fileID: 0}
   limitTimeUI: {fileID: 0}
+  gameUI: {fileID: 0}
+  moveCount: 25
+  time: 0
 --- !u!1 &5393233873036420638
 GameObject:
   m_ObjectHideFlags: 0

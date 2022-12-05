@@ -55,10 +55,9 @@ public class StageManager : MonoBehaviour
     {
         stages = Resources.LoadAll<GameObject>("Stages");
 
-        PlayerPrefs.SetInt("Stage", 8);
         if (PlayerPrefs.GetInt("Stage") >= stages.Length)
         {
-            PlayerPrefs.SetInt("Stage", 6);
+            PlayerPrefs.SetInt("Stage", 0);
             curStageIndex = 0;
         }
 
@@ -88,18 +87,20 @@ public class StageManager : MonoBehaviour
                 Debug.Log("asd");
                 if (!stagesDic.ContainsKey("HardStage" + PlayerPrefs.GetInt("Stage") / 3))
                 {
-                    Instantiate(stagesDic["Stage" + (PlayerPrefs.GetInt("Stage") + 1)], Vector3.zero, Quaternion.identity);
+                    Instantiate(stagesDic["Stage" + (PlayerPrefs.GetInt("Stage"))], Vector3.zero, Quaternion.identity);
                     return;
                 }
             }
-
             Instantiate(stagesDic["HardStage" + PlayerPrefs.GetInt("Stage") / 3], Vector3.zero, Quaternion.identity);
-
-            PlayerPrefs.SetInt("Stage", PlayerPrefs.GetInt("Stage") - 1);
         }
         else
         {
             Instantiate(stagesDic["Stage" + PlayerPrefs.GetInt("Stage")], Vector3.zero, Quaternion.identity);
         }
     }   
+
+    void SetHardMode()
+    {
+
+    }
 }

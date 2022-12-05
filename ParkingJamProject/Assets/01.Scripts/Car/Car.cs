@@ -32,7 +32,7 @@ public class Car : MonoBehaviour
     #endregion
 
 
-    private void Start()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
         people = FindObjectsOfType<People>();
@@ -56,7 +56,7 @@ public class Car : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         // 자동차객체 로테이션 제어문
         if (!isMove)
@@ -245,13 +245,19 @@ public class Car : MonoBehaviour
     // 스테이지 안에서 MoveCo 코루틴을 제어하는 함수
     public void Move(Vector3 dir)
     {
-        if(curstageInfo.mode == Stage.StageMode.limitMove)
+        if(curstageInfo != null)
         {
-            if (curstageInfo.moveCount < 0)
+            if (curstageInfo.mode == Stage.StageMode.limitMove)
             {
-                return;
+                curstageInfo.UpdateMovecount();
+
+                if (curstageInfo.moveCount < 0)
+                {
+                    return;
+                }
             }
         }
+        
 
         float dot = Vector3.Dot(dir.normalized, -transform.right.normalized);
 
@@ -277,6 +283,7 @@ public class Car : MonoBehaviour
 
             }
         }
+
     }
 
     // 실질적인 움직임과 코너부분 제어하는 함수

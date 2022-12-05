@@ -12,6 +12,8 @@ public class Goal : MonoBehaviour
 
     NextStageUI nextStageUI;
 
+    int targetGoalCount;
+
     // 자동차가 Goal 지점 오면 체크한번 해주기
 
     private void Start()
@@ -24,6 +26,8 @@ public class Goal : MonoBehaviour
         {
             particles[i] = effect.transform.GetChild(i).gameObject;
         }
+
+        targetGoalCount = carParents.childCount;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,7 +38,20 @@ public class Goal : MonoBehaviour
             other.gameObject.GetComponent<Car>().isPassing = false;
             other.gameObject.SetActive(false);
 
-            if (goalCount == carParents.childCount)
+            if (GetComponentInParent<Stage>() != null)
+            {
+                if (GetComponentInParent<Stage>().mode == Stage.StageMode.limitTime)
+                {
+                    if (other.GetComponent<TimeLimitCar>() != null)
+                    {
+                        Invoke("GoalEffect", 1f);
+                        nextStageUI.OnNextStageUI();
+                        return;
+                    }
+                }
+            }
+
+            if (goalCount == targetGoalCount)
             {
                 Invoke("GoalEffect", 1f);
                 nextStageUI.OnNextStageUI();
