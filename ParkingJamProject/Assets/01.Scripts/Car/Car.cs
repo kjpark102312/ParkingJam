@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Car : MonoBehaviour
@@ -18,7 +19,7 @@ public class Car : MonoBehaviour
     bool isCol = false;
 
     float sightAngle = 90f;
-    float speed = 10f;
+    float speed = 15f;
 
     public int cornerIndex = 0;
 
@@ -86,17 +87,9 @@ public class Car : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.FreezePositionY;
             }
         }
-        
-        
-        // 중복 이동 제한 함수
-        
 
-        //if (isCol)
-        //{
-        //    rb.velocity = Vector3.zero;
-        //}
 
-        // Pass 했을때 자동차객체 위치 및 로테이션 제어문
+        Debug.Log(isPassing);
         if (targetCorner != null && !isPassing)
         {
             if (Mathf.Floor(transform.position.x) == Mathf.Floor(targetCorner.localPosition.x)
@@ -128,23 +121,36 @@ public class Car : MonoBehaviour
                 }
 
                 transform.DORotate(new Vector3(0f, angle, 0), 0.2f).OnComplete(() =>
+                {
+                    if (CheckAngle(targetCorner.position - transform.position))
                     {
-                        if (CheckAngle(targetCorner.position - transform.position))
-                        {
 
-                        }
-                        else
-                            targetCorner = corners[cornerIndex + 1];
-                        cornerIndex = cornerIndex + 1;
+                    }
+                    else
+                        targetCorner = corners[cornerIndex + 1];
+                    cornerIndex = cornerIndex + 1;
 
-                        StartCoroutine(PassCo());
-                    });
+                    StartCoroutine(PassCo());
+                });
             }
         }
+        // 중복 이동 제한 함수
+
+
+        //if (isCol)
+        //{
+        //    rb.velocity = Vector3.zero;
+        //}
+        /*
+         */
+        // Pass 했을때 자동차객체 위치 및 로테이션 제어문
+
     }
 
     private void FixedUpdate()
     {
+        
+
         if (isPass)
         {
             RaycastHit hit;
