@@ -41,7 +41,6 @@ public class StageManager : MonoBehaviour
         {
             instance = this;
 
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -59,6 +58,7 @@ public class StageManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("Stage", 0);
             curStageIndex = 0;
+            Debug.Log("");
         }
 
         for (int i = 0; i < stages.Length; i++)
@@ -98,9 +98,4 @@ public class StageManager : MonoBehaviour
             Instantiate(stagesDic["Stage" + PlayerPrefs.GetInt("Stage")], Vector3.zero, Quaternion.identity);
         }
     }   
-
-    void SetHardMode()
-    {
-
-    }
 }

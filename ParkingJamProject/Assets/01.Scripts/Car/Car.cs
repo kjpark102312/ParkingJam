@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -30,6 +31,9 @@ public class Car : MonoBehaviour
     People[] people;
 
     Stage curstageInfo;
+
+    private Action carPass = () => { };
+    private TimeLimitCar timeLimitCar;
     #endregion
 
 
@@ -38,8 +42,12 @@ public class Car : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         people = FindObjectsOfType<People>();
         curstageInfo = FindObjectOfType<Stage>();
+        timeLimitCar = FindObjectOfType<TimeLimitCar>();
 
-
+        if(timeLimitCar!=null)
+        {
+            carPass += timeLimitCar.CarPass;
+        }
 
         for (int i = 0; i < people.Length; i++)
         {
@@ -88,8 +96,6 @@ public class Car : MonoBehaviour
             }
         }
 
-
-        Debug.Log(isPassing);
         if (targetCorner != null && !isPassing)
         {
             if (Mathf.Floor(transform.position.x) == Mathf.Floor(targetCorner.localPosition.x)
@@ -103,8 +109,10 @@ public class Car : MonoBehaviour
                 isPassing = true;
                 isPass = false;
 
+                carPass();
+                
                 float angle;
-
+                
                 if (curMoveDir == -transform.right.normalized)
                     angle = transform.localEulerAngles.y + 90f;
                 else
@@ -214,6 +222,7 @@ public class Car : MonoBehaviour
         }
         else
         {
+            
             isPass = true;
             Debug.Log("아무것도없음");
         }
@@ -249,18 +258,19 @@ public class Car : MonoBehaviour
 
 
     // 스테이지 안에서 MoveCo 코루틴을 제어하는 함수
-    public void Move(Vector3 dir)
+    public virtual void Move(Vector3 dir)
     {
         if(curstageInfo != null)
         {
             if (curstageInfo.mode == Stage.StageMode.limitMove)
             {
-                curstageInfo.UpdateMovecount();
 
                 if (curstageInfo.moveCount < 0)
                 {
                     return;
                 }
+
+                curstageInfo.UpdateMovecount();
             }
         }
         

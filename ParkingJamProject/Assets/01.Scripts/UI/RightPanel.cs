@@ -28,7 +28,10 @@ public class RightPanel : MonoBehaviour
 
             UIManager.Instance.GetUI(UIPanels.LeftUI).SetActive(false);
             UIManager.Instance.GetUI(UIPanels.RightUI).SetActive(false);
-            UIManager.Instance.GetUI(UIPanels.LvUI).SetActive(false);
+            UIManager.Instance.GetUI(UIPanels.InGameUI).SetActive(false);
+
+            GameManager.Instance.IsPause = false;
+
         }));
 
 
@@ -41,7 +44,7 @@ public class RightPanel : MonoBehaviour
 
             UIManager.Instance.GetUI(UIPanels.LeftUI).SetActive(false);
             UIManager.Instance.GetUI(UIPanels.RightUI).SetActive(false);
-            UIManager.Instance.GetUI(UIPanels.LvUI).SetActive(false);
+            UIManager.Instance.GetUI(UIPanels.InGameUI).SetActive(false);
 
             challengePaneltp.PlayForward();
         }));

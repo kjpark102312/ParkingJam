@@ -14,7 +14,7 @@ public enum UIPanels
     OptionUI,
     LeftUI,
     RightUI,
-    LvUI,
+    InGameUI,
     BackGround,
     Exit,
 }

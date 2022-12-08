@@ -41,6 +41,7 @@ public class PauseUI : MonoBehaviour
             optionPaneltp.enabled = true;
             optionPaneltp.PlayForward();
 
+
         }));
 
         returnButton.onClick.Add(new EventDelegate(() =>
@@ -54,7 +55,9 @@ public class PauseUI : MonoBehaviour
             
             UIManager.Instance.GetUI(UIPanels.LeftUI).SetActive(true);
             UIManager.Instance.GetUI(UIPanels.RightUI).SetActive(true);
-            UIManager.Instance.GetUI(UIPanels.LvUI).SetActive(true);
+            UIManager.Instance.GetUI(UIPanels.InGameUI).SetActive(true);
+
+            GameManager.Instance.IsPause = true;
 
         }));
     }

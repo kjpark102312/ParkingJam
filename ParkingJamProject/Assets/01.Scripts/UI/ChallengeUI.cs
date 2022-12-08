@@ -16,7 +16,7 @@ public class ChallengeUI : MonoBehaviour
 
             UIManager.Instance.GetUI(UIPanels.LeftUI).SetActive(true);
             UIManager.Instance.GetUI(UIPanels.RightUI).SetActive(true);
-            UIManager.Instance.GetUI(UIPanels.LvUI).SetActive(true);
+            UIManager.Instance.GetUI(UIPanels.InGameUI).SetActive(true);
             UIManager.Instance.GetUI(UIPanels.BackGround).GetComponent<TweenPosition>().PlayReverse();
         }));
     }

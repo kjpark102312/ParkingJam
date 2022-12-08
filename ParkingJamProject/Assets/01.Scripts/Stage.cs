@@ -14,6 +14,7 @@ public class Stage : MonoBehaviour
 
     public GameObject limitMoveUI;
     public GameObject limitTimeUI;
+    public GameObject limitTimePanel;
 
     public InGameUI gameUI;
 
@@ -25,7 +26,7 @@ public class Stage : MonoBehaviour
     void Start()
     {
         limitMoveUI = GameObject.Find("CarMoveCount");
-        limitTimeUI = GameObject.Find("CarTimer");
+        limitTimePanel = GameObject.Find("CarLimitTime");
         gameUI = FindObjectOfType<InGameUI>();
         limitCar = FindObjectOfType<TimeLimitCar>();
 
@@ -40,11 +41,30 @@ public class Stage : MonoBehaviour
                 }
                 
             case StageMode.limitTime:
-                limitTimeUI.gameObject.SetActive(true);
                 limitCar.stageTime = time;
                 limitCar.time = time;
                 break;
         }
+    }
+
+    private void Update()
+    {
+        switch (mode)
+        {
+            case StageMode.limitMove:
+                {
+                    if (moveCount <= 0)
+                    {
+                        UIManager.Instance.GameOverTween();
+                    }
+                    break;
+                }
+
+            case StageMode.limitTime:
+                
+                break;
+        }
+        
     }
 
     public void UpdateMovecount()

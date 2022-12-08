@@ -16,12 +16,14 @@ public class TimeLimitCar : Car
 
     int passCarCount = 0;
 
+
     protected override void Start()
     {
         base.Start();
 
         timer = FindObjectOfType<CarTimer>().gameObject;
         timer.GetComponent<UIWidget>().alpha = 1;
+
 
         timerSprite = timer.transform.GetChild(0).GetComponent<UISprite>();
 
@@ -33,33 +35,13 @@ public class TimeLimitCar : Car
 
     protected override void Update()
     {
-        base .Update();
-
-        Vector3 screenPos = UICamera.mainCamera.ViewportToWorldPoint(Camera.main.WorldToViewportPoint(transform.position));
-
-        timer.transform.position = new Vector3(screenPos.x, screenPos.y, 0);
+        base.Update();
 
         if(!isGameOver)
         {
-            for (int i = 0; i < carParents.transform.childCount; i++)
-            {
-                if(carParents.transform.GetChild(i).GetComponent<Car>().isPassing)
-                {
-                    if(carParents.transform.GetChild(i).gameObject == targetCars[i])
-                    {
-                        Debug.Log("PassCount");
-
-                        targetCars.RemoveAt(i);
-                        carParents.transform.GetChild(i).parent = null;
-
-                        time += 0.5f;   
-                        passCarCount++;
-                    }
-                }
-            }
-
-
-            if(carParents.transform.childCount == 0)
+            if(targetCars.Count == 0)
+                return;
+            if (GameManager.Instance.IsPause == false)
                 return;
             time -= Time.deltaTime;
 
@@ -71,6 +53,13 @@ public class TimeLimitCar : Car
                 UIManager.Instance.GameOverTween();
             }
         }
+    }
+
+    public void CarPass()
+    {
+        targetCars.RemoveAt(0);
+
+        time += 0.5f;
     }
 }
     
