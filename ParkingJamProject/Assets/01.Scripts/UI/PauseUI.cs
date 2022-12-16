@@ -12,6 +12,7 @@ public class PauseUI : MonoBehaviour
 
 
     public TweenPosition[] widgetTps;
+
     void Start()
     {
         thisTp = GetComponent<TweenPosition>();

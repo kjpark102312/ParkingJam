@@ -25,7 +25,7 @@ public class Stage : MonoBehaviour
 
     void Start()
     {
-        limitMoveUI = GameObject.Find("CarMoveCount");
+        limitMoveUI = UIManager.Instance.GetUI(UIPanels.InGameUI).transform.Find("CarMoveCount").gameObject;
         limitTimePanel = GameObject.Find("CarLimitTime");
         gameUI = FindObjectOfType<InGameUI>();
         limitCar = FindObjectOfType<TimeLimitCar>();

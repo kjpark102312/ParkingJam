@@ -9,6 +9,9 @@ public class RightPanel : MonoBehaviour
     public UIButton pauseButton;
     public TweenPosition pausePaneltp;
 
+    [SerializeField] UILabel goldText;
+
+
     [Header("Ã§¸°ÁöÃ¢")]
     public UIButton challengeButton;
     public TweenPosition challengePaneltp;
@@ -31,6 +34,8 @@ public class RightPanel : MonoBehaviour
             UIManager.Instance.GetUI(UIPanels.InGameUI).SetActive(false);
 
             GameManager.Instance.IsPause = false;
+
+            goldText.text = PlayerPrefs.GetInt("Gold").ToString();
 
         }));
 

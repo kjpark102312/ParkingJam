@@ -33,8 +33,9 @@ public class StageManager : MonoBehaviour
     public GameObject[] stages;
 
     public int curStageIndex;
+    public int getGoldCount;
 
-
+    GameObject cam;
     private void Awake()
     {
         if (instance == null)
@@ -53,7 +54,6 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         stages = Resources.LoadAll<GameObject>("Stages");
-
         if (PlayerPrefs.GetInt("Stage") >= stages.Length)
         {
             PlayerPrefs.SetInt("Stage", 0);
@@ -79,6 +79,7 @@ public class StageManager : MonoBehaviour
         if (PlayerPrefs.GetInt("Stage") == 0)
         {
             Instantiate(stagesDic["Stage"], Vector3.zero, Quaternion.identity);
+            Camera.main.transform.position = new Vector3(42.7f, 27.8f, -67.2f);
         }
         else if (PlayerPrefs.GetInt("Stage") % 3 == 0)
         {
@@ -88,6 +89,7 @@ public class StageManager : MonoBehaviour
                 if (!stagesDic.ContainsKey("HardStage" + PlayerPrefs.GetInt("Stage") / 3))
                 {
                     Instantiate(stagesDic["Stage" + (PlayerPrefs.GetInt("Stage"))], Vector3.zero, Quaternion.identity);
+                    Camera.main.transform.position = new Vector3(42.7f, 33.6f, -67.2f);
                     return;
                 }
             }
@@ -96,6 +98,7 @@ public class StageManager : MonoBehaviour
         else
         {
             Instantiate(stagesDic["Stage" + PlayerPrefs.GetInt("Stage")], Vector3.zero, Quaternion.identity);
+            Camera.main.transform.position = new Vector3(42.7f, 33.6f, -67.2f);
         }
     }   
 }

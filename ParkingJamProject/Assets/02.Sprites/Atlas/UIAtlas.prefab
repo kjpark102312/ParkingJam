@@ -46,8 +46,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: f48a74f9022ca154587ce6171661dfb2, type: 2}
   mSprites:
   - name: button_circle_1
-    x: 771
-    y: 896
+    x: 751
+    y: 380
     width: 128
     height: 128
     borderLeft: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button_corner_rectangle1_1
     x: 0
-    y: 403
+    y: 118
     width: 384
     height: 128
     borderLeft: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button_corner_rectangle3_1
     x: 236
-    y: 639
+    y: 354
     width: 384
     height: 128
     borderLeft: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button_corner_rectangle4_1
     x: 257
-    y: 896
+    y: 611
     width: 384
     height: 128
     borderLeft: 0
@@ -98,8 +98,21 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button_corner_square1_19
-    x: 385
-    y: 380
+    x: 751
+    y: 509
+    width: 128
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: button_corner_square3_1
+    x: 670
+    y: 896
     width: 128
     height: 128
     borderLeft: 0
@@ -111,8 +124,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button_oval
-    x: 621
-    y: 638
+    x: 285
+    y: 767
     width: 384
     height: 128
     borderLeft: 0
@@ -125,7 +138,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button_oval_3
     x: 385
-    y: 509
+    y: 225
     width: 384
     height: 128
     borderLeft: 0
@@ -137,8 +150,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button_oval_6
-    x: 621
-    y: 767
+    x: 285
+    y: 896
     width: 384
     height: 128
     borderLeft: 0
@@ -151,7 +164,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: button_square_1
     x: 642
-    y: 896
+    y: 638
     width: 128
     height: 128
     borderLeft: 0
@@ -162,9 +175,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: coin
+    x: 0
+    y: 740
+    width: 284
+    height: 284
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 108
+    paddingRight: 108
+    paddingTop: 108
+    paddingBottom: 108
   - name: FadeBackGround
     x: 0
-    y: 532
+    y: 247
     width: 235
     height: 235
     borderLeft: 0
@@ -176,8 +202,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: FontAtlas
-    x: 770
-    y: 508
+    x: 621
+    y: 481
     width: 129
     height: 129
     borderLeft: 0
@@ -189,7 +215,7 @@ MonoBehaviour:
     paddingTop: -1
     paddingBottom: 0
   - name: icon_line_arrow_1
-    x: 504
+    x: 792
     y: 781
     width: 113
     height: 114
@@ -202,8 +228,8 @@ MonoBehaviour:
     paddingTop: 7
     paddingBottom: 7
   - name: icon_line_arrow_4
-    x: 514
-    y: 398
+    x: 257
+    y: 500
     width: 98
     height: 110
     borderLeft: 0
@@ -215,8 +241,8 @@ MonoBehaviour:
     paddingTop: 9
     paddingBottom: 9
   - name: icon_line_common_13
-    x: 613
-    y: 317
+    x: 558
+    y: 514
     width: 60
     height: 96
     borderLeft: 0
@@ -228,8 +254,8 @@ MonoBehaviour:
     paddingTop: 16
     paddingBottom: 16
   - name: icon_line_device_1
-    x: 900
-    y: 402
+    x: 902
+    y: 911
     width: 97
     height: 113
     borderLeft: 0
@@ -241,7 +267,7 @@ MonoBehaviour:
     paddingTop: 7
     paddingBottom: 8
   - name: icon_line_game_29
-    x: 382
+    x: 670
     y: 774
     width: 121
     height: 121
@@ -254,8 +280,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 4
   - name: icon_line_game_30
-    x: 900
-    y: 516
+    x: 771
+    y: 652
     width: 121
     height: 121
     borderLeft: 0
@@ -267,7 +293,7 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 3
   - name: icon_line_game_51
-    x: 900
+    x: 799
     y: 909
     width: 102
     height: 115
@@ -280,8 +306,8 @@ MonoBehaviour:
     paddingTop: 6
     paddingBottom: 7
   - name: icon_line_media_10
-    x: 613
-    y: 414
+    x: 356
+    y: 516
     width: 105
     height: 94
     borderLeft: 0
@@ -294,7 +320,7 @@ MonoBehaviour:
     paddingBottom: 17
   - name: icon_line_media_13
     x: 236
-    y: 549
+    y: 264
     width: 122
     height: 89
     borderLeft: 0
@@ -306,8 +332,8 @@ MonoBehaviour:
     paddingTop: 20
     paddingBottom: 19
   - name: icon_line_media_16
-    x: 719
-    y: 404
+    x: 462
+    y: 507
     width: 95
     height: 103
     borderLeft: 0
@@ -319,8 +345,8 @@ MonoBehaviour:
     paddingTop: 13
     paddingBottom: 12
   - name: icon_line_media_49
-    x: 815
-    y: 391
+    x: 880
+    y: 535
     width: 79
     height: 116
     borderLeft: 0
@@ -332,8 +358,8 @@ MonoBehaviour:
     paddingTop: 6
     paddingBottom: 6
   - name: icon_line_tool_2
-    x: 257
-    y: 772
+    x: 621
+    y: 357
     width: 124
     height: 123
     borderLeft: 0
@@ -346,7 +372,7 @@ MonoBehaviour:
     paddingBottom: 3
   - name: Square
     x: 0
-    y: 768
+    y: 483
     width: 256
     height: 256
     borderLeft: 0

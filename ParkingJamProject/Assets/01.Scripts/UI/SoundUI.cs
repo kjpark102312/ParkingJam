@@ -31,6 +31,8 @@ public class SoundUI : MonoBehaviour
                 colorTween.PlayForward();
 
                 isOn = !isOn;
+
+                SoundManager.Instance.enabled = false;
             }
             else
             {
@@ -38,14 +40,13 @@ public class SoundUI : MonoBehaviour
                 colorTween.PlayReverse();
 
                 isOn = !isOn;
+
+                SoundManager.Instance.enabled = true;
             }
             
         }));
-
-
     }
 
-    // Update is called once per frame
     void Update()
     {
         

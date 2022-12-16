@@ -22,6 +22,34 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool _isVibrate = true;
+    public bool IsVibrate
+    {
+        get
+        {
+            return _isVibrate;
+        }
+
+        set
+        {
+            _isVibrate = value;
+        }
+    }
+
+    private bool _isOnSound = true;
+    public bool IsOnSound
+    {
+        get
+        {
+            return _isOnSound;
+        }
+
+        set
+        {
+            _isOnSound = value;
+        }
+    }
+
     public Action<bool> _onPauseChanged = (_isPaused) => { };
 
     private static GameManager _instance = null;

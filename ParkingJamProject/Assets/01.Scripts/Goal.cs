@@ -16,6 +16,7 @@ public class Goal : MonoBehaviour
 
     public TimeLimitCar timeLimitCar;
 
+    [SerializeField] private ParticleSystem goalParticle;
     // 자동차가 Goal 지점 오면 체크한번 해주기
 
     private void Start()
@@ -38,9 +39,15 @@ public class Goal : MonoBehaviour
         {
             goalCount++;
             other.gameObject.GetComponent<Car>().isPassing = false;
-            other.gameObject.SetActive(false);
+            other.gameObject.GetComponent<Car>().enabled = false;
+            goalParticle.Play();
 
-            if(timeLimitCar != null)
+            if (GameManager.Instance.IsVibrate)
+            {
+                Handheld.Vibrate();
+            }
+
+            if (timeLimitCar != null)
             {
                 Debug.Log("sadsad");
                 timeLimitCar.time += 0.5f;
@@ -55,6 +62,10 @@ public class Goal : MonoBehaviour
                         if(timeLimitCar.targetCars.Count == 0)
                         {
                             Invoke("GoalEffect", 1f);
+                            if (GameManager.Instance.IsVibrate)
+                            {
+                                Handheld.Vibrate();
+                            }
                             nextStageUI.OnNextStageUI();
                             return;
                         }
@@ -66,6 +77,8 @@ public class Goal : MonoBehaviour
             {
                 Invoke("GoalEffect", 1f);
                 nextStageUI.OnNextStageUI();
+                GoldManager.Instance.Gold += StageManager.Instance.getGoldCount;
+                PlayerPrefs.SetInt("Gold", GoldManager.Instance.Gold);
             }
         }
     }

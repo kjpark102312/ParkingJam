@@ -6,6 +6,8 @@ public class NextStageUI : MonoBehaviour
 {
     [SerializeField] UIButton nextStageButton = null;
 
+    [SerializeField] UILabel goldText = null;
+
     [SerializeField] TweenAlpha ta = null;
     [SerializeField] TweenPosition tp = null;
     [SerializeField] TweenScale tc = null;
@@ -38,6 +40,8 @@ public class NextStageUI : MonoBehaviour
     {
         backgroundTa.enabled = true;
         backgroundTa.PlayForward();
+
+        goldText.text = $"+{StageManager.Instance.getGoldCount}";
 
         ta.enabled = true;
         ta.PlayForward();

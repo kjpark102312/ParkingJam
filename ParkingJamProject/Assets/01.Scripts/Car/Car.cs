@@ -34,6 +34,8 @@ public class Car : MonoBehaviour
 
     private Action carPass = () => { };
     private TimeLimitCar timeLimitCar;
+
+    private CoinEffect effect;
     #endregion
 
 
@@ -43,8 +45,9 @@ public class Car : MonoBehaviour
         people = FindObjectsOfType<People>();
         curstageInfo = FindObjectOfType<Stage>();
         timeLimitCar = FindObjectOfType<TimeLimitCar>();
+        effect = FindObjectOfType<CoinEffect>();
 
-        if(timeLimitCar!=null)
+        if (timeLimitCar!=null)
         {
             carPass += timeLimitCar.CarPass;
         }
@@ -110,7 +113,9 @@ public class Car : MonoBehaviour
                 isPass = false;
 
                 carPass();
-                
+                effect.PlayEffect(transform.position);
+                StageManager.Instance.getGoldCount += 2;
+
                 float angle;
                 
                 if (curMoveDir == -transform.right.normalized)
@@ -208,8 +213,6 @@ public class Car : MonoBehaviour
 
         distance = Mathf.Abs(distance);
 
-        Debug.Log(distance);
-        Debug.Log(curMoveDir);
 
         if (Physics.Raycast(transform.position, curMoveDir, out hit, distance, layerMask))
         {
@@ -224,7 +227,6 @@ public class Car : MonoBehaviour
         {
             
             isPass = true;
-            Debug.Log("아무것도없음");
         }
     }
 
@@ -241,12 +243,12 @@ public class Car : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, targetCorner.position) <= 1)
             {
-                transform.DORotate(new Vector3(0f, transform.localEulerAngles.y + 90, 0), 0.15f);
+                cornerIndex = cornerIndex + 1;
 
                 if (cornerIndex < corners.Length)
                 {
-                    targetCorner = corners[cornerIndex + 1];
-                    cornerIndex = cornerIndex + 1;
+                    transform.DORotate(new Vector3(0f, transform.localEulerAngles.y + 90, 0), 0.15f);
+                    targetCorner = corners[cornerIndex];
                 }
             }
 
@@ -351,6 +353,11 @@ public class Car : MonoBehaviour
             rb.velocity = Vector3.zero;
 
             Invoke("ColKnockBack", 0.05f);
+
+            if(GameManager.Instance.IsVibrate)
+            {
+                Handheld.Vibrate();
+            }
             //ColKnockBack();
 
             Debug.Log("충돌!!"+this.gameObject + this.gameObject.transform.position);
@@ -436,7 +443,6 @@ public class Car : MonoBehaviour
         this.gameObject.layer = 0;
         this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
 
-        Debug.Log("패스");
     }
 
     //isMove 제어하는 함수
