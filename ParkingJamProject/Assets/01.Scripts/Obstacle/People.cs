@@ -12,11 +12,13 @@ public class People : MonoBehaviour
 
     NavMeshAgent agent;
 
+    Animator anim;
 
     public Action onCollisionCar = () => { };
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren   <Animator>();
     }
 
     void Update()
@@ -46,7 +48,7 @@ public class People : MonoBehaviour
 
         Vector3 dir = points[index].localPosition - transform.localPosition;
 
-        transform.LookAt(dir);
+        anim.SetBool("IsWalk", true);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -56,6 +58,8 @@ public class People : MonoBehaviour
             agent.isStopped = true;
             agent.velocity = Vector3.zero;
 
+            anim.SetBool("IsWalk", false);
+            anim.SetTrigger("ColCar");
 
             if (collision.gameObject.GetComponent<Car>().isMove == true)
             {

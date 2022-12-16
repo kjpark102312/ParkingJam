@@ -17,6 +17,7 @@ public class Car : MonoBehaviour
     public bool isPass = false;
     public bool isGameOver = false;
     public bool isPassing = false;
+    private bool isFirst = false;
     bool isCol = false;
 
     float sightAngle = 90f;
@@ -101,50 +102,54 @@ public class Car : MonoBehaviour
 
         if (targetCorner != null && !isPassing)
         {
-            if (Mathf.Floor(transform.position.x) == Mathf.Floor(targetCorner.localPosition.x)
-                || Mathf.Floor(transform.position.z) == Mathf.Floor(targetCorner.localPosition.z))
+            if (!isFirst)
             {
-                StopAllCoroutines();
-                Pass();
-
-                rb.velocity = Vector3.zero;
-
-                isPassing = true;
-                isPass = false;
-
-                carPass();
-                effect.PlayEffect(transform.position);
-                StageManager.Instance.getGoldCount += 2;
-
-                float angle;
-                
-                if (curMoveDir == -transform.right.normalized)
-                    angle = transform.localEulerAngles.y + 90f;
-                else
-                    angle = transform.localEulerAngles.y - 90f;
-
-
-                if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
+                if (Mathf.Floor(transform.position.x) - Mathf.Floor(targetCorner.localPosition.x) <= 0.5f
+                || Mathf.Floor(transform.position.z) - Mathf.Floor(targetCorner.localPosition.z) <= 0.5f)
                 {
-                    transform.position = new Vector3(transform.position.x, transform.position.y, targetCorner.position.z);
-                }
-                else
-                {
-                    transform.position = new Vector3(targetCorner.position.x, transform.position.y, transform.position.z);
-                }
+                    StopAllCoroutines();
+                    Pass();
 
-                transform.DORotate(new Vector3(0f, angle, 0), 0.2f).OnComplete(() =>
-                {
-                    if (CheckAngle(targetCorner.position - transform.position))
+                    rb.velocity = Vector3.zero;
+
+                    isPassing = true;
+                    isPass = false;
+                    isFirst = true;
+
+                    carPass();
+                    effect.PlayEffect(transform.position);
+                    StageManager.Instance.getGoldCount += 2;
+
+                    float angle;
+
+                    if (curMoveDir == -transform.right.normalized)
+                        angle = transform.localEulerAngles.y + 90f;
+                    else
+                        angle = transform.localEulerAngles.y - 90f;
+
+
+                    if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
                     {
-
+                        transform.position = new Vector3(transform.position.x, transform.position.y, targetCorner.position.z);
                     }
                     else
-                        targetCorner = corners[cornerIndex + 1];
-                    cornerIndex = cornerIndex + 1;
+                    {
+                        transform.position = new Vector3(targetCorner.position.x, transform.position.y, transform.position.z);
+                    }
 
-                    StartCoroutine(PassCo());
-                });
+                    transform.DORotate(new Vector3(0f, angle, 0), 0.2f).OnComplete(() =>
+                    {
+                        if (CheckAngle(targetCorner.position - transform.position))
+                        {
+
+                        }
+                        else
+                            targetCorner = corners[cornerIndex + 1];
+                        cornerIndex = cornerIndex + 1;
+
+                        StartCoroutine(PassCo());
+                    });
+                }
             }
         }
         // 중복 이동 제한 함수
@@ -241,7 +246,7 @@ public class Car : MonoBehaviour
 
         while (true)
         {
-            if (Vector3.Distance(transform.position, targetCorner.position) <= 1)
+            if (Vector3.Distance(transform.position, targetCorner.position) <= 0.9)
             {
                 cornerIndex = cornerIndex + 1;
 

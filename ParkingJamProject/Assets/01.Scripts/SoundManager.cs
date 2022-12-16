@@ -49,8 +49,8 @@ public class SoundManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject); //여러 씬에서 사용할 것.
 
-        bgmPlayer = GameObject.Find("BGMSoundPlayer").GetComponent<AudioSource>();
-        sfxPlayer = GameObject.Find("SFXSoundPlayer").GetComponent<AudioSource>();
+        //bgmPlayer = GameObject.Find("BGMSoundPlayer").GetComponent<AudioSource>();
+        //sfxPlayer = GameObject.Find("SFXSoundPlayer").GetComponent<AudioSource>();
 
         foreach (AudioClip audioclip in sfxAudioClips)
         {
