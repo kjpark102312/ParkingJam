@@ -19,7 +19,6 @@ public class PauseUI : MonoBehaviour
 
         for (int i = 0; i < widgetTps.Length-1; i++)
         {
-            Debug.Log(i);   
             widgetTps[i].onFinished.Add(new EventDelegate(() =>
             {
                 for (int j = 0; j < widgetTps.Length; j++)

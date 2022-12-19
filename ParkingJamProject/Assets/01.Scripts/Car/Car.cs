@@ -21,7 +21,7 @@ public class Car : MonoBehaviour
     bool isCol = false;
 
     float sightAngle = 90f;
-    float speed = 15f;
+    float speed = 10f;
 
     public int cornerIndex = 0;
 
@@ -104,8 +104,8 @@ public class Car : MonoBehaviour
         {
             if (!isFirst)
             {
-                if (Mathf.Floor(transform.position.x) - Mathf.Floor(targetCorner.localPosition.x) <= 0.5f
-                || Mathf.Floor(transform.position.z) - Mathf.Floor(targetCorner.localPosition.z) <= 0.5f)
+                if (Mathf.Floor(transform.position.x) == Mathf.Floor(targetCorner.localPosition.x)
+                || Mathf.Floor(transform.position.z) == Mathf.Floor(targetCorner.localPosition.z) )
                 {
                     StopAllCoroutines();
                     Pass();

@@ -21,12 +21,18 @@ public class Player : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane, 1 << 6))
             {
                 if (hit.collider == null)
+                {
+                    Debug.Log("QQQQ");
                     return;
+                }
                 if (!isCanTouchCar)
                     return;
 
+                Debug.Log(hit.transform.gameObject);
+
                 if (hit.collider.CompareTag("Car"))
                 {
+                    Debug.Log("QQQQ");
                     firstPos = hit.point    ;
                     hitObj = hit.collider.gameObject;
                 }

@@ -64,7 +64,7 @@ public class Goal : MonoBehaviour
                             Invoke("GoalEffect", 1f);
                             if (GameManager.Instance.IsVibrate)
                             {
-                                Handheld.Vibrate();
+                                Vibration.Vibrate((long)0.1);
                             }
                             nextStageUI.OnNextStageUI();
                             return;

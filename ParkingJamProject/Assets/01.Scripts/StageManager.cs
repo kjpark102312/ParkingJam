@@ -55,6 +55,8 @@ public class StageManager : MonoBehaviour
     {
         stages = Resources.LoadAll<GameObject>("Stages");
 
+        PlayerPrefs.SetInt("Stage", 0);
+
         if (PlayerPrefs.GetInt("Stage") >= stages.Length)
         {
             PlayerPrefs.SetInt("Stage", 0);
@@ -86,7 +88,6 @@ public class StageManager : MonoBehaviour
         {
             if (PlayerPrefs.GetInt("Stage") / 3 > 1)
             {
-                Debug.Log("asd");
                 if (!stagesDic.ContainsKey("HardStage" + PlayerPrefs.GetInt("Stage") / 3))
                 {
                     Instantiate(stagesDic["Stage" + (PlayerPrefs.GetInt("Stage"))], Vector3.zero, Quaternion.identity);
