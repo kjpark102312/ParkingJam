@@ -246,7 +246,7 @@ public class Car : MonoBehaviour
 
         while (true)
         {
-            if (Vector3.Distance(transform.position, targetCorner.position) <= 0.9)
+            if (Vector3.Distance(transform.position, targetCorner.position) <= 0.9f)
             {
                 cornerIndex = cornerIndex + 1;
 
