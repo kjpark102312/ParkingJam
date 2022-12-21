@@ -152,23 +152,10 @@ public class Car : MonoBehaviour
                 }
             }
         }
-        // 중복 이동 제한 함수
-
-
-        //if (isCol)
-        //{
-        //    rb.velocity = Vector3.zero;
-        //}
-        /*
-         */
-        // Pass 했을때 자동차객체 위치 및 로테이션 제어문
-
     }
 
     private void FixedUpdate()
     {
-        
-
         if (isPass)
         {
             RaycastHit hit;
@@ -272,7 +259,7 @@ public class Car : MonoBehaviour
             if (curstageInfo.mode == Stage.StageMode.limitMove)
             {
 
-                if (curstageInfo.moveCount < 0)
+                if (curstageInfo.moveCount <= 0)
                 {
                     return;
                 }

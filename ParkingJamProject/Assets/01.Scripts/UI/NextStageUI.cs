@@ -9,8 +9,6 @@ public class NextStageUI : MonoBehaviour
     [SerializeField] UILabel goldText = null;
 
     [SerializeField] TweenAlpha ta = null;
-    [SerializeField] TweenPosition tp = null;
-    [SerializeField] TweenScale tc = null;
 
     [SerializeField] TweenAlpha backgroundTa = null;
 
@@ -25,14 +23,10 @@ public class NextStageUI : MonoBehaviour
             LoadSceneManager.Instance.NextScene();
         }));
 
-        ta.onFinished.Add(new EventDelegate(() =>
+        backgroundTa.onFinished.Add(new EventDelegate(() =>
         {
-            tp.enabled = true;
-            tc.enabled = true;
-            
-
-            tp.PlayForward();
-            tc.PlayForward();
+            ta.enabled = true;
+            ta.PlayForward();
         }));
     }
 
@@ -41,9 +35,8 @@ public class NextStageUI : MonoBehaviour
         backgroundTa.enabled = true;
         backgroundTa.PlayForward();
 
-        goldText.text = $"+{StageManager.Instance.getGoldCount}";
+        UIManager.Instance.DisableInGameUI();
 
-        ta.enabled = true;
-        ta.PlayForward();
+        goldText.text = $"+{StageManager.Instance.getGoldCount}";
     }
 }

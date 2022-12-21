@@ -17,7 +17,8 @@ public class GoldManager : MonoBehaviour
             return instance;
         }
     }
-    
+
+    [SerializeField]
     public int Gold
     {
         get
@@ -30,6 +31,7 @@ public class GoldManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
     private int _gold;
 
     private void Awake()

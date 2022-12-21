@@ -46,8 +46,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: f48a74f9022ca154587ce6171661dfb2, type: 2}
   mSprites:
   - name: button_circle_1
-    x: 751
-    y: 380
+    x: 670
+    y: 767
     width: 128
     height: 128
     borderLeft: 0
@@ -98,8 +98,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button_corner_square1_19
-    x: 751
-    y: 509
+    x: 670
+    y: 896
     width: 128
     height: 128
     borderLeft: 0
@@ -111,8 +111,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button_corner_square3_1
-    x: 670
-    y: 896
+    x: 751
+    y: 509
     width: 128
     height: 128
     borderLeft: 0
@@ -214,9 +214,22 @@ MonoBehaviour:
     paddingRight: -1
     paddingTop: -1
     paddingBottom: 0
+  - name: icon_gesture_10
+    x: 751
+    y: 388
+    width: 80
+    height: 120
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 24
+    paddingRight: 24
+    paddingTop: 4
+    paddingBottom: 4
   - name: icon_line_arrow_1
-    x: 792
-    y: 781
+    x: 379
+    y: 496
     width: 113
     height: 114
     borderLeft: 0
@@ -228,8 +241,8 @@ MonoBehaviour:
     paddingTop: 7
     paddingBottom: 7
   - name: icon_line_arrow_4
-    x: 257
-    y: 500
+    x: 799
+    y: 800
     width: 98
     height: 110
     borderLeft: 0
@@ -241,8 +254,8 @@ MonoBehaviour:
     paddingTop: 9
     paddingBottom: 9
   - name: icon_line_common_13
-    x: 558
-    y: 514
+    x: 898
+    y: 833
     width: 60
     height: 96
     borderLeft: 0
@@ -254,7 +267,7 @@ MonoBehaviour:
     paddingTop: 16
     paddingBottom: 16
   - name: icon_line_device_1
-    x: 902
+    x: 799
     y: 911
     width: 97
     height: 113
@@ -267,8 +280,8 @@ MonoBehaviour:
     paddingTop: 7
     paddingBottom: 8
   - name: icon_line_game_29
-    x: 670
-    y: 774
+    x: 257
+    y: 489
     width: 121
     height: 121
     borderLeft: 0
@@ -281,7 +294,7 @@ MonoBehaviour:
     paddingBottom: 4
   - name: icon_line_game_30
     x: 771
-    y: 652
+    y: 645
     width: 121
     height: 121
     borderLeft: 0
@@ -293,8 +306,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 3
   - name: icon_line_game_51
-    x: 799
-    y: 909
+    x: 493
+    y: 495
     width: 102
     height: 115
     borderLeft: 0
@@ -306,8 +319,8 @@ MonoBehaviour:
     paddingTop: 6
     paddingBottom: 7
   - name: icon_line_media_10
-    x: 356
-    y: 516
+    x: 897
+    y: 930
     width: 105
     height: 94
     borderLeft: 0
@@ -332,8 +345,8 @@ MonoBehaviour:
     paddingTop: 20
     paddingBottom: 19
   - name: icon_line_media_16
-    x: 462
-    y: 507
+    x: 880
+    y: 541
     width: 95
     height: 103
     borderLeft: 0
@@ -345,8 +358,8 @@ MonoBehaviour:
     paddingTop: 13
     paddingBottom: 12
   - name: icon_line_media_49
-    x: 880
-    y: 535
+    x: 893
+    y: 683
     width: 79
     height: 116
     borderLeft: 0

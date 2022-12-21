@@ -65,6 +65,13 @@ public class UIManager : MonoBehaviour
         tween.enabled = true;
     }
 
+    public void DisableInGameUI()
+    {
+        GetUI(UIPanels.InGameUI).SetActive(false);
+        GetUI(UIPanels.LeftUI).SetActive(false);
+        GetUI(UIPanels.RightUI).SetActive(false);
+    }
+
     public GameObject GetUI(UIPanels panel)
     {
         if (uiPanelDic.ContainsKey(panel))

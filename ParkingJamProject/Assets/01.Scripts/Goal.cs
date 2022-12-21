@@ -77,7 +77,7 @@ public class Goal : MonoBehaviour
             {
                 Invoke("GoalEffect", 1f);
                 nextStageUI.OnNextStageUI();
-                GoldManager.Instance.Gold += StageManager.Instance.getGoldCount;
+                GoldManager.Instance.Gold = StageManager.Instance.getGoldCount;
                 PlayerPrefs.SetInt("Gold", GoldManager.Instance.Gold);
             }
         }
