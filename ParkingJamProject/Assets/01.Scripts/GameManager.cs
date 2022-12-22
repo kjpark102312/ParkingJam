@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-    private bool _isPause = true;
+    private bool _isPause = false;
     public bool IsPause
     {
         get

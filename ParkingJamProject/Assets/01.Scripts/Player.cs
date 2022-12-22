@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.IsPause)
+            return;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 

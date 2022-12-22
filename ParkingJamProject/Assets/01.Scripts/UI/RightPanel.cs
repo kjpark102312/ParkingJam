@@ -33,7 +33,7 @@ public class RightPanel : MonoBehaviour
             UIManager.Instance.GetUI(UIPanels.RightUI).SetActive(false);
             UIManager.Instance.GetUI(UIPanels.InGameUI).SetActive(false);
 
-            GameManager.Instance.IsPause = false;
+            GameManager.Instance.IsPause = true;
 
             goldText.text = PlayerPrefs.GetInt("Gold").ToString();
 

@@ -21,7 +21,7 @@ public class Car : MonoBehaviour
     bool isCol = false;
 
     float sightAngle = 90f;
-    float speed = 10f;
+    float speed = 15f;
 
     public int cornerIndex = 0;
 
@@ -37,6 +37,9 @@ public class Car : MonoBehaviour
     private TimeLimitCar timeLimitCar;
 
     private CoinEffect effect;
+
+    
+    private CrashEffect crashEffect;
     #endregion
 
 
@@ -47,6 +50,7 @@ public class Car : MonoBehaviour
         curstageInfo = FindObjectOfType<Stage>();
         timeLimitCar = FindObjectOfType<TimeLimitCar>();
         effect = FindObjectOfType<CoinEffect>();
+        crashEffect = FindObjectOfType<CrashEffect>();
 
         if (timeLimitCar!=null)
         {
@@ -217,7 +221,6 @@ public class Car : MonoBehaviour
         }
         else
         {
-            
             isPass = true;
         }
     }
@@ -267,7 +270,6 @@ public class Car : MonoBehaviour
                 curstageInfo.UpdateMovecount();
             }
         }
-        
 
         float dot = Vector3.Dot(dir.normalized, -transform.right.normalized);
 
@@ -337,6 +339,12 @@ public class Car : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.CompareTag("People"))
+        {
+            Debug.Log("asd");
+            rb.velocity = Vector3.zero;
+        }
+
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Obstacle"))
         {
             isPass = false;
@@ -351,6 +359,31 @@ public class Car : MonoBehaviour
                 Handheld.Vibrate();
             }
             //ColKnockBack();
+
+            if(isMove)
+            {
+                for (int i = 0; i < crashEffect.crashEffect.Length; i++)
+                {
+                    if (crashEffect.crashEffect[i].gameObject.activeSelf)
+                        continue;
+
+                    crashEffect.crashEffect[i].gameObject.SetActive(true);
+                    crashEffect.crashEffect[i].Play();
+                    crashEffect.crashEffect[i].transform.position = collision.contacts[0].point;
+
+                    if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
+                    {
+                        crashEffect.crashEffect[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+                    }
+                    else
+                    {
+                        crashEffect.crashEffect[i].transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                    }
+                    break;
+                }
+            }
+            
 
             Debug.Log("Ãæµ¹!!"+this.gameObject + this.gameObject.transform.position);
                 
