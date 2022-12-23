@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
                     isCanTouchCar = false;
                     hitObj.GetComponent<Car>().Move(lastPos - firstPos);
                 }
+
+                
             }
         }
         if(Input.GetMouseButtonUp(0))

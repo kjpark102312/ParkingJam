@@ -57,7 +57,7 @@ public class PauseUI : MonoBehaviour
             UIManager.Instance.GetUI(UIPanels.RightUI).SetActive(true);
             UIManager.Instance.GetUI(UIPanels.InGameUI).SetActive(true);
 
-            GameManager.Instance.IsPause = true;
+            GameManager.Instance.IsPause = false;
 
         }));
     }

@@ -12,6 +12,7 @@ public class NextStageUI : MonoBehaviour
 
     [SerializeField] TweenAlpha backgroundTa = null;
 
+    [SerializeField] TweenRotation emoji = null;
 
     void Start()
     {
@@ -27,7 +28,11 @@ public class NextStageUI : MonoBehaviour
         {
             ta.enabled = true;
             ta.PlayForward();
+
+            emoji.enabled = true;
+            emoji.PlayForward();
         }));
+
     }
 
     public void OnNextStageUI()

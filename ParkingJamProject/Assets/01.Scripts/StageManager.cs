@@ -55,8 +55,7 @@ public class StageManager : MonoBehaviour
     {
         stages = Resources.LoadAll<GameObject>("Stages");
 
-
-        if (PlayerPrefs.GetInt("Stage") >= stages.Length)
+        if (PlayerPrefs.GetInt("Stage") >= stages.Length-1)
         {
             PlayerPrefs.SetInt("Stage", 0);
             curStageIndex = 0;
@@ -98,6 +97,8 @@ public class StageManager : MonoBehaviour
         }
         else
         {
+            Debug.Log(PlayerPrefs.GetInt("Stage"));
+            Debug.Log(stages.Length);
             Instantiate(stagesDic["Stage" + PlayerPrefs.GetInt("Stage")], Vector3.zero, Quaternion.identity);
             Camera.main.transform.position = new Vector3(42.7f, 33.6f, -67.2f);
         }

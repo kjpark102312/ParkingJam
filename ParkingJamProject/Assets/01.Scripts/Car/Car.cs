@@ -389,7 +389,6 @@ public class Car : MonoBehaviour
             {
                 Handheld.Vibrate();
             }
-            //ColKnockBack();
 
             if(isMove)
             {

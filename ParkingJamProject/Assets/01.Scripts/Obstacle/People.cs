@@ -1,8 +1,10 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class People : MonoBehaviour
 {
@@ -15,32 +17,56 @@ public class People : MonoBehaviour
     Animator anim;
     Rigidbody rb;
 
-    public Action onCollisionCar = () => { };
+    public UnityAction onCollisionCar = () => { };
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
+
+        StartCoroutine(Patrol());
     }
 
     void Update()
     {
-
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.forward, out hit,1f))
+        {
+            if(hit.collider.CompareTag("Car"))
+            {
+                agent.isStopped = true;
+                anim.SetBool("IsWalk", false);
+            }
+            else
+            {
+                agent.isStopped = false;
+                anim.SetBool("IsWalk", true);
+            }    
+        }
+        else
+        {
+            agent.isStopped = false;
+            anim.SetBool("IsWalk", true);
+        }
         Debug.DrawRay(transform.position, transform.forward, Color.red, 1f);
 
-        Patrol();
+        
     }
 
-    void Patrol()
+    IEnumerator Patrol()
     {
-        if(!agent.isStopped)
+        Vector3 dir;
+        while (!agent.isStopped)
         {
+            dir = new Vector3((points[index].position - transform.position).x, 0, (points[index].position - transform.position).z);
             agent.destination = points[index].position;
 
-            if (!agent.pathPending && agent.remainingDistance < 0.1f)
+            transform.LookAt(dir);
+
+            if (!agent.pathPending && agent.remainingDistance < 1f)
             {
                 if (points.Length == 0)
-                    return;
+                    continue;
                 agent.destination = points[index].position;
 
                 index = index + 1;
@@ -50,9 +76,9 @@ public class People : MonoBehaviour
                 }
             }
 
-            Vector3 dir = points[index].localPosition - transform.localPosition;
-
-            anim.SetBool("IsWalk", true);
+            transform.DOMove(transform.position + dir.normalized, 0.2f);
+            Debug.Log("sad");
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
@@ -62,22 +88,26 @@ public class People : MonoBehaviour
         {
             agent.isStopped = true;
             agent.velocity = Vector3.zero;
-
-            rb.constraints = RigidbodyConstraints.FreezePosition;
-
-            transform.LookAt(collision.transform);
-
             anim.SetBool("IsWalk", false);
-            anim.SetTrigger("ColCar");
 
             if (collision.gameObject.GetComponent<Car>().isMove == true)
             {
+                rb.constraints = RigidbodyConstraints.FreezePosition;
+
+                transform.LookAt(collision.transform);
+
+                anim.SetTrigger("ColCar");
+
                 collision.gameObject.GetComponent<Car>().isMove = false;
                 collision.gameObject.GetComponent<Car>().isGameOver = true;
 
                 UIManager.Instance.GameOverTween();
 
                 onCollisionCar();
+            }
+            else
+            {
+
             }
         }
     }

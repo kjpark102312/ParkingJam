@@ -11069,6 +11069,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4031791327391550812}
     m_Modifications:
+    - target: {fileID: 535700661, guid: c71215da8abed7348808e0d1378077f8, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 535700662, guid: c71215da8abed7348808e0d1378077f8, type: 3}
       propertyPath: points.Array.size
       value: 2

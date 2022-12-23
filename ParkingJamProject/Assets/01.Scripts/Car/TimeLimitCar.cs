@@ -41,7 +41,7 @@ public class TimeLimitCar : Car
         {
             if(targetCars.Count == 0)
                 return;
-            if (GameManager.Instance.IsPause == false)
+            if (GameManager.Instance.IsPause == true)
                 return;
             time -= Time.deltaTime;
 
