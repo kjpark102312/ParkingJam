@@ -25,17 +25,14 @@ public class Player : MonoBehaviour
             {
                 if (hit.collider == null)
                 {
-                    Debug.Log("QQQQ");
                     return;
                 }
                 if (!isCanTouchCar)
                     return;
 
-                Debug.Log(hit.transform.gameObject);
 
                 if (hit.collider.CompareTag("Car"))
                 {
-                    Debug.Log("QQQQ");
                     firstPos = hit.point    ;
                     hitObj = hit.collider.gameObject;
                 }

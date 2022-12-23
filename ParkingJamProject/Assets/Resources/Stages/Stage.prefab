@@ -11091,7 +11091,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5179667125124138937, guid: c71215da8abed7348808e0d1378077f8, type: 3}
       propertyPath: m_TagString
-      value: People
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 5179667125124138946, guid: c71215da8abed7348808e0d1378077f8, type: 3}
       propertyPath: m_Constraints

@@ -98,7 +98,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: button_corner_square1_19
-    x: 670
+    x: 880
     y: 896
     width: 128
     height: 128
@@ -214,9 +214,22 @@ MonoBehaviour:
     paddingRight: -1
     paddingTop: -1
     paddingBottom: 0
-  - name: icon_gesture_10
+  - name: FontAtlas2
     x: 751
-    y: 388
+    y: 379
+    width: 129
+    height: 129
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: -1
+    paddingTop: -1
+    paddingBottom: 0
+  - name: icon_gesture_10
+    x: 792
+    y: 904
     width: 80
     height: 120
     borderLeft: 0
@@ -228,8 +241,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 4
   - name: icon_line_arrow_1
-    x: 379
-    y: 496
+    x: 880
+    y: 530
     width: 113
     height: 114
     borderLeft: 0
@@ -241,8 +254,8 @@ MonoBehaviour:
     paddingTop: 7
     paddingBottom: 7
   - name: icon_line_arrow_4
-    x: 799
-    y: 800
+    x: 902
+    y: 785
     width: 98
     height: 110
     borderLeft: 0
@@ -254,8 +267,8 @@ MonoBehaviour:
     paddingTop: 9
     paddingBottom: 9
   - name: icon_line_common_13
-    x: 898
-    y: 833
+    x: 539
+    y: 514
     width: 60
     height: 96
     borderLeft: 0
@@ -267,8 +280,8 @@ MonoBehaviour:
     paddingTop: 16
     paddingBottom: 16
   - name: icon_line_device_1
-    x: 799
-    y: 911
+    x: 893
+    y: 666
     width: 97
     height: 113
     borderLeft: 0
@@ -280,8 +293,8 @@ MonoBehaviour:
     paddingTop: 7
     paddingBottom: 8
   - name: icon_line_game_29
-    x: 257
-    y: 489
+    x: 670
+    y: 903
     width: 121
     height: 121
     borderLeft: 0
@@ -306,8 +319,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 3
   - name: icon_line_game_51
-    x: 493
-    y: 495
+    x: 799
+    y: 780
     width: 102
     height: 115
     borderLeft: 0
@@ -319,8 +332,8 @@ MonoBehaviour:
     paddingTop: 6
     paddingBottom: 7
   - name: icon_line_media_10
-    x: 897
-    y: 930
+    x: 257
+    y: 516
     width: 105
     height: 94
     borderLeft: 0
@@ -345,8 +358,8 @@ MonoBehaviour:
     paddingTop: 20
     paddingBottom: 19
   - name: icon_line_media_16
-    x: 880
-    y: 541
+    x: 363
+    y: 507
     width: 95
     height: 103
     borderLeft: 0
@@ -358,8 +371,8 @@ MonoBehaviour:
     paddingTop: 13
     paddingBottom: 12
   - name: icon_line_media_49
-    x: 893
-    y: 683
+    x: 459
+    y: 494
     width: 79
     height: 116
     borderLeft: 0

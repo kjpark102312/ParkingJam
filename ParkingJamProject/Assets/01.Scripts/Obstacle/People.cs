@@ -13,12 +13,14 @@ public class People : MonoBehaviour
     NavMeshAgent agent;
 
     Animator anim;
+    Rigidbody rb;
 
     public Action onCollisionCar = () => { };
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponentInChildren   <Animator>();
+        anim = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -31,32 +33,39 @@ public class People : MonoBehaviour
 
     void Patrol()
     {
-        agent.destination = points[index].position;
-
-        if (!agent.pathPending && agent.remainingDistance < 0.1f)
+        if(!agent.isStopped)
         {
-            if (points.Length == 0)
-                return;
             agent.destination = points[index].position;
 
-            index = index + 1;
-            if(index >= points.Length)
+            if (!agent.pathPending && agent.remainingDistance < 0.1f)
             {
-                index = 0;
+                if (points.Length == 0)
+                    return;
+                agent.destination = points[index].position;
+
+                index = index + 1;
+                if (index >= points.Length)
+                {
+                    index = 0;
+                }
             }
+
+            Vector3 dir = points[index].localPosition - transform.localPosition;
+
+            anim.SetBool("IsWalk", true);
         }
-
-        Vector3 dir = points[index].localPosition - transform.localPosition;
-
-        anim.SetBool("IsWalk", true);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Car"))
+        if (collision.gameObject.CompareTag("Car"))
         {
             agent.isStopped = true;
             agent.velocity = Vector3.zero;
+
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+
+            transform.LookAt(collision.transform);
 
             anim.SetBool("IsWalk", false);
             anim.SetTrigger("ColCar");
@@ -69,7 +78,6 @@ public class People : MonoBehaviour
                 UIManager.Instance.GameOverTween();
 
                 onCollisionCar();
-                
             }
         }
     }

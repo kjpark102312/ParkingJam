@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a3c1ecb0cfff2e4d9d70fbd9552f19a, type: 3}
-  m_Name: FontAtlas
+  m_Name: FontAtlas2
   m_EditorClassIdentifier: 
   mType: 0
   mMat: {fileID: 2100000, guid: f48a74f9022ca154587ce6171661dfb2, type: 2}
   mUVRect:
     serializedVersion: 2
-    x: 0.6064453
-    y: 0.40429688
-    width: 0.125
-    height: 0.125
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   mFont:
     mSize: 16
     mBase: 0
     mWidth: 128
     mHeight: 128
-    mSpriteName: FontAtlas
+    mSpriteName: FontAtlas2
     mSaved:
     - index: 32
       x: 0
@@ -129,11 +129,11 @@ MonoBehaviour:
       kerning: 25000000ffffffff2f000000ffffffff33000000ffffffff35000000ffffffff36000000ffffffff38000000ffffffff
     - index: 42
       x: 14
-      y: -1
+      y: -2
       width: 12
-      height: 8
+      height: 9
       offsetX: -1
-      offsetY: 0
+      offsetY: -1
       advance: 10
       channel: 15
       kerning: 
@@ -190,7 +190,7 @@ MonoBehaviour:
     - index: 48
       x: 118
       y: 97
-      width: 11
+      width: 12
       height: 15
       offsetX: 0
       offsetY: -1
@@ -400,7 +400,7 @@ MonoBehaviour:
     - index: 69
       x: 119
       y: 71
-      width: 10
+      width: 11
       height: 15
       offsetX: 0
       offsetY: -1
@@ -710,7 +710,7 @@ MonoBehaviour:
     - index: 100
       x: 118
       y: 112
-      width: 11
+      width: 12
       height: 16
       offsetX: -1
       offsetY: -2

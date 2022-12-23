@@ -1,8 +1,6 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Car : MonoBehaviour
@@ -29,6 +27,7 @@ public class Car : MonoBehaviour
 
     public Vector3 curMoveDir;
 
+    [SerializeField]
     People[] people;
 
     Stage curstageInfo;
@@ -63,14 +62,20 @@ public class Car : MonoBehaviour
             {
                 if (isGameOver)
                 {
-                    StopAllCoroutines();
+                    Debug.Log(this.gameObject.name);
 
-                    rb.velocity = Vector3.zero;
-
+                    CrashPeople();
                     Invoke("GameOver", 1f);
                 }
             };
         }
+    }
+
+    void CrashPeople()
+    {
+        StopAllCoroutines();
+
+        rb.velocity = Vector3.zero;
     }
 
     protected virtual void Update()
@@ -295,7 +300,6 @@ public class Car : MonoBehaviour
 
             }
         }
-
     }
 
     // 실질적인 움직임과 코너부분 제어하는 함수
@@ -328,23 +332,50 @@ public class Car : MonoBehaviour
                 }
             }
         }
+
         CheckPass();
+
         while (true)
         {
-            rb.velocity = dir * speed;
+            CheckOtherCar(dir);
+            if (!isOtherCar)
+                rb.velocity = dir * speed;
+
+            Debug.Log("움직인다");
 
             yield return null;
         }
     }
 
+    bool isOtherCar;
+    public void CheckOtherCar(Vector3 dir)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, dir, out hit, 3f))
+        {
+            if (hit.transform.CompareTag("Car"))
+            {
+                if(hit.transform.GetComponent<Car>().isPassing)
+                {
+                    isOtherCar = true;
+                    rb.velocity = Vector3.zero;
+                }
+            }
+            else
+            {
+                isOtherCar = false;
+                isMove = true;
+            }
+        }
+        else
+        {
+            isOtherCar = false;
+            isMove = true;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("People"))
-        {
-            Debug.Log("asd");
-            rb.velocity = Vector3.zero;
-        }
-
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Obstacle"))
         {
             isPass = false;
@@ -383,10 +414,6 @@ public class Car : MonoBehaviour
                     break;
                 }
             }
-            
-
-            Debug.Log("충돌!!"+this.gameObject + this.gameObject.transform.position);
-                
             isCol = true;
         }
     }
@@ -422,6 +449,7 @@ public class Car : MonoBehaviour
         }
     }
 
+
     // 객체 정면, 후면 체크해주는 함수
     bool CheckAngle(Vector3 dir)
     {
@@ -456,7 +484,6 @@ public class Car : MonoBehaviour
 
             rb.AddForce(-curMoveDir * 2.5f, ForceMode.Impulse);
 
-            Debug.Log(-curMoveDir);
 
             Invoke("FreezePos", 0.1f);
         }
@@ -465,7 +492,6 @@ public class Car : MonoBehaviour
     // Pass했을때 옵션들 제어해주는 함수
     public void Pass()
     {
-        this.gameObject.layer = 0;
         this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
 
     }
