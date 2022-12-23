@@ -56,12 +56,16 @@ public class People : MonoBehaviour
     IEnumerator Patrol()
     {
         Vector3 dir;
+        Vector3 dir2;
         while (!agent.isStopped)
         {
-            dir = new Vector3((points[index].position - transform.position).x, 0, (points[index].position - transform.position).z);
+            dir = new Vector3((points[index].position - transform.position).x, transform.position.y, (points[index].position - transform.position).z);
+            dir2 = new Vector3(points[index].position.x, transform.position.y, points[index].position.z);
             agent.destination = points[index].position;
 
-            transform.LookAt(dir);
+            Debug.Log(dir);
+
+            transform.LookAt(dir2);
 
             if (!agent.pathPending && agent.remainingDistance < 1f)
             {
