@@ -15,50 +15,53 @@ public class Car : MonoBehaviour
     public bool isPass = false;
     public bool isGameOver = false;
     public bool isPassing = false;
-    private bool isFirst = false;
-    bool isCol = false;
 
-    float sightAngle = 90f;
-    float speed = 15f;
+    private bool _isFirst = false;
+    private bool _isCol = false;
+
+    private float _sightAngle = 90f;
+    private float _speed = 15f;
 
     public int cornerIndex = 0;
 
-    Rigidbody rb;
 
     public Vector3 curMoveDir;
 
     [SerializeField]
-    People[] people;
+    private People[] _people;
 
-    Stage curstageInfo;
+    private Rigidbody _rb;
 
-    private Action carPass = () => { };
-    private TimeLimitCar timeLimitCar;
+    private Stage _curstageInfo;
+    private Action _carPass = () => { };
+    private TimeLimitCar _timeLimitCar;
+    private CoinEffect _effect;
+    private CrashEffect _crashEffect;
 
-    private CoinEffect effect;
 
-    
-    private CrashEffect crashEffect;
+    private IEnumerator _moveCo;
+    private IEnumerator _passCo;
+
     #endregion
 
 
     protected virtual void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        people = FindObjectsOfType<People>();
-        curstageInfo = FindObjectOfType<Stage>();
-        timeLimitCar = FindObjectOfType<TimeLimitCar>();
-        effect = FindObjectOfType<CoinEffect>();
-        crashEffect = FindObjectOfType<CrashEffect>();
+        _rb = GetComponent<Rigidbody>();
+        _people = FindObjectsOfType<People>();
+        _curstageInfo = FindObjectOfType<Stage>();
+        _timeLimitCar = FindObjectOfType<TimeLimitCar>();
+        _effect = FindObjectOfType<CoinEffect>();
+        _crashEffect = FindObjectOfType<CrashEffect>();
 
-        if (timeLimitCar!=null)
+        if (_timeLimitCar!=null)
         {
-            carPass += timeLimitCar.CarPass;
+            _carPass += _timeLimitCar.CarPass;
         }
 
-        for (int i = 0; i < people.Length; i++)
+        for (int i = 0; i < _people.Length; i++)
         {
-            people[i].onCollisionCar += () =>
+            _people[i].onCollisionCar += () =>
             {
                 if (isGameOver)
                 {
@@ -73,9 +76,9 @@ public class Car : MonoBehaviour
 
     void CrashPeople()
     {
-        StopAllCoroutines();
+        StopCoroutine(_moveCo);
 
-        rb.velocity = Vector3.zero;
+        _rb.velocity = Vector3.zero;
     }
 
     protected virtual void Update()
@@ -85,10 +88,10 @@ public class Car : MonoBehaviour
         {
             if (isGameOver)
             {
-                rb.constraints = RigidbodyConstraints.None;
+                _rb.constraints = RigidbodyConstraints.None;
                 return;
             }
-            rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         }
         else
         {
@@ -96,37 +99,37 @@ public class Car : MonoBehaviour
             {
                 if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
                 {
-                    rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;
+                    _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;
                 }
                 else
                 {
-                    rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+                    _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
                 }
             }
             else
             {
-                rb.constraints = RigidbodyConstraints.FreezePositionY;
+                _rb.constraints = RigidbodyConstraints.FreezePositionY;
             }
         }
 
         if (targetCorner != null && !isPassing)
         {
-            if (!isFirst)
+            if (!_isFirst)
             {
                 if (Mathf.Floor(transform.position.x) == Mathf.Floor(targetCorner.localPosition.x)
                 || Mathf.Floor(transform.position.z) == Mathf.Floor(targetCorner.localPosition.z) )
                 {
-                    StopAllCoroutines();
+                    StopCoroutine(_moveCo);
                     Pass();
 
-                    rb.velocity = Vector3.zero;
+                    _rb.velocity = Vector3.zero;
 
                     isPassing = true;
                     isPass = false;
-                    isFirst = true;
+                    _isFirst = true;
 
-                    carPass();
-                    effect.PlayEffect(transform.position);
+                    _carPass();
+                    _effect.PlayEffect(transform.position);
                     StageManager.Instance.getGoldCount += 2;
 
                     float angle;
@@ -156,7 +159,8 @@ public class Car : MonoBehaviour
                             targetCorner = corners[cornerIndex + 1];
                         cornerIndex = cornerIndex + 1;
 
-                        StartCoroutine(PassCo());
+                        _passCo = PassCo();
+                        StartCoroutine(_passCo);
                     });
                 }
             }
@@ -175,7 +179,7 @@ public class Car : MonoBehaviour
                 {
                     if (hit.transform.GetComponent<Car>().isPassing == true)
                     {
-                        StopAllCoroutines();
+                        StopCoroutine(_moveCo);
                     }
                     else
                     {
@@ -189,7 +193,7 @@ public class Car : MonoBehaviour
             }
             else
             {
-                rb.velocity = curMoveDir * speed;
+                _rb.velocity = curMoveDir * _speed;
             }
         }
     }
@@ -237,7 +241,7 @@ public class Car : MonoBehaviour
         isMove = true;
         isPass = false;
 
-        rb.constraints = RigidbodyConstraints.FreezePositionY;
+        _rb.constraints = RigidbodyConstraints.FreezePositionY;
 
         while (true)
         {
@@ -252,7 +256,7 @@ public class Car : MonoBehaviour
                 }
             }
 
-            rb.velocity = -transform.right.normalized * speed;
+            _rb.velocity = -transform.right.normalized * _speed;
 
             yield return null;
         }
@@ -262,17 +266,18 @@ public class Car : MonoBehaviour
     // 스테이지 안에서 MoveCo 코루틴을 제어하는 함수
     public virtual void Move(Vector3 dir)
     {
-        if(curstageInfo != null)
-        {
-            if (curstageInfo.mode == Stage.StageMode.limitMove)
-            {
+        
 
-                if (curstageInfo.moveCount <= 0)
+        if(_curstageInfo != null)
+        {
+            if (_curstageInfo.mode == Stage.StageMode.limitMove)
+            {
+                if (_curstageInfo.moveCount <= 0)
                 {
                     return;
                 }
 
-                curstageInfo.UpdateMovecount();
+                _curstageInfo.UpdateMovecount();
             }
         }
 
@@ -280,13 +285,14 @@ public class Car : MonoBehaviour
 
         float theta = Mathf.Acos(dot) * (180 / Mathf.PI);
 
-        if (theta <= sightAngle)
+        if (theta <= _sightAngle)
         {
             if (!isMove)
             {
                 curMoveDir = -transform.right;
 
-                StartCoroutine(MoveCo(-transform.right));
+                _moveCo = MoveCo(curMoveDir);
+                StartCoroutine(_moveCo);
 
             }
         }
@@ -295,8 +301,8 @@ public class Car : MonoBehaviour
             if (!isMove)
             {
                 curMoveDir = transform.right;
-
-                StartCoroutine(MoveCo(transform.right));
+                _moveCo = MoveCo(curMoveDir);
+                StartCoroutine(_moveCo);
 
             }
         }
@@ -308,7 +314,7 @@ public class Car : MonoBehaviour
         isMove = true;
         isPassing = false;
 
-        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
 
         GetTargetCorner();
 
@@ -339,7 +345,7 @@ public class Car : MonoBehaviour
         {
             CheckOtherCar(dir);
             if (!isOtherCar)
-                rb.velocity = dir * speed;
+                _rb.velocity = dir * _speed;
 
             Debug.Log("움직인다");
 
@@ -358,7 +364,7 @@ public class Car : MonoBehaviour
                 if(hit.transform.GetComponent<Car>().isPassing)
                 {
                     isOtherCar = true;
-                    rb.velocity = Vector3.zero;
+                    _rb.velocity = Vector3.zero;
                 }
             }
             else
@@ -379,9 +385,9 @@ public class Car : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Obstacle"))
         {
             isPass = false;
-            StopAllCoroutines();
+            StopCoroutine(_moveCo);
 
-            rb.velocity = Vector3.zero;
+            _rb.velocity = Vector3.zero;
 
             Invoke("ColKnockBack", 0.05f);
 
@@ -392,28 +398,28 @@ public class Car : MonoBehaviour
 
             if(isMove)
             {
-                for (int i = 0; i < crashEffect.crashEffect.Length; i++)
+                for (int i = 0; i < _crashEffect._crashEffect.Length; i++)
                 {
-                    if (crashEffect.crashEffect[i].gameObject.activeSelf)
+                    if (_crashEffect._crashEffect[i].gameObject.activeSelf)
                         continue;
 
-                    crashEffect.crashEffect[i].gameObject.SetActive(true);
-                    crashEffect.crashEffect[i].Play();
-                    crashEffect.crashEffect[i].transform.position = collision.contacts[0].point;
+                    _crashEffect._crashEffect[i].gameObject.SetActive(true);
+                    _crashEffect._crashEffect[i].Play();
+                    _crashEffect._crashEffect[i].transform.position = collision.contacts[0].point;
 
                     if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
                     {
-                        crashEffect.crashEffect[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                        _crashEffect._crashEffect[i].transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
                     }
                     else
                     {
-                        crashEffect.crashEffect[i].transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                        _crashEffect._crashEffect[i].transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
                     }
                     break;
                 }
             }
-            isCol = true;
+            _isCol = true;
         }
     }
 
@@ -426,9 +432,9 @@ public class Car : MonoBehaviour
     // 게임오버 연출
     void GameOver()
     {
-        rb.AddForce(-curMoveDir * 5f, ForceMode.Impulse);
-        rb.AddForce(transform.up * 10f, ForceMode.Impulse);
-        rb.AddTorque(transform.right * 10f, ForceMode.Impulse);
+        _rb.AddForce(-curMoveDir * 5f, ForceMode.Impulse);
+        _rb.AddForce(transform.up * 10f, ForceMode.Impulse);
+        _rb.AddTorque(transform.right * 10f, ForceMode.Impulse);
 
         Debug.Log("게임 오버");
     }
@@ -452,11 +458,11 @@ public class Car : MonoBehaviour
     // 객체 정면, 후면 체크해주는 함수
     bool CheckAngle(Vector3 dir)
     {
-        float dot = Vector3.Dot(dir.normalized, -transform.right.normalized);
+        float _dot = Vector3.Dot(dir.normalized, -transform.right.normalized);
 
-        float theta = Mathf.Acos(dot) * (180 / Mathf.PI);
+        float _theta = Mathf.Acos(_dot) * (180 / Mathf.PI);
 
-        if (theta <= 90)
+        if (_theta <= 90)
         {
             return true;
         }
@@ -474,14 +480,14 @@ public class Car : MonoBehaviour
             if (isGameOver)
                 return;
 
-            StopAllCoroutines();
+            StopCoroutine(_moveCo);
 
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
 
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            _rb.constraints = RigidbodyConstraints.FreezeRotation;
 
-            rb.AddForce(-curMoveDir * 2.5f, ForceMode.Impulse);
+            _rb.AddForce(-curMoveDir * 2.5f, ForceMode.Impulse);
 
 
             Invoke("FreezePos", 0.1f);

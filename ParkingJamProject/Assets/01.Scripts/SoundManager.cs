@@ -38,7 +38,6 @@ public class SoundManager : MonoBehaviour
     Dictionary<string, AudioClip> audioClipsDic = new Dictionary<string, AudioClip>(); //효과음 딕셔너리
     // AudioClip을 Key,Value 형태로 관리하기 위해 딕셔너리 사용
 
-
     bool isPause = false;
 
     private void Awake()
