@@ -12,18 +12,20 @@ public class People : MonoBehaviour
 
     public int index = 0;
 
-    NavMeshAgent agent;
-
-    Animator anim;
-    Rigidbody rb;
+    Animator anim = null;
+    Rigidbody rb = null;
 
     public UnityAction onCollisionCar = () => { };
+
+    private bool isPatrol = true;
+
+    IEnumerator patrolCo;
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
 
+        patrolCo = Patrol();
         StartCoroutine(Patrol());
     }
 
@@ -34,18 +36,19 @@ public class People : MonoBehaviour
         {
             if(hit.collider.CompareTag("Car"))
             {
-                agent.isStopped = true;
+                StopCoroutine(patrolCo);
                 anim.SetBool("IsWalk", false);
+                isPatrol = false;
             }
             else
             {
-                agent.isStopped = false;
                 anim.SetBool("IsWalk", true);
+                isPatrol = true;
             }    
         }
         else
         {
-            agent.isStopped = false;
+            isPatrol = true;
             anim.SetBool("IsWalk", true);
         }
         Debug.DrawRay(transform.position, transform.forward, Color.red, 1f);
@@ -57,21 +60,23 @@ public class People : MonoBehaviour
     {
         Vector3 dir;
         Vector3 dir2;
-        while (!agent.isStopped)
+        index = 0;
+        Debug.Log(points.Length);
+
+        while (isPatrol)
         {
-            dir = new Vector3((points[index].position - transform.position).x, transform.position.y, (points[index].position - transform.position).z);
+            dir = new Vector3((points[index].position - transform.position).x, 0 , (points[index].position - transform.position).z);
             dir2 = new Vector3(points[index].position.x, transform.position.y, points[index].position.z);
-            agent.destination = points[index].position;
 
             Debug.Log(dir);
+            Debug.Log(index);
 
             transform.LookAt(dir2);
 
-            if (!agent.pathPending && agent.remainingDistance < 1f)
+            if (Vector3.Distance(transform.position, points[index].position) <= 1f)
             {
                 if (points.Length == 0)
                     continue;
-                agent.destination = points[index].position;
 
                 index = index + 1;
                 if (index >= points.Length)
@@ -90,8 +95,8 @@ public class People : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Car"))
         {
-            agent.isStopped = true;
-            agent.velocity = Vector3.zero;
+            StopCoroutine(patrolCo);
+            isPatrol = false;
             anim.SetBool("IsWalk", false);
 
             if (collision.gameObject.GetComponent<Car>().isMove == true)
@@ -104,6 +109,7 @@ public class People : MonoBehaviour
 
                 collision.gameObject.GetComponent<Car>().isMove = false;
                 collision.gameObject.GetComponent<Car>().isGameOver = true;
+                collision.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
                 UIManager.Instance.GameOverTween();
 
