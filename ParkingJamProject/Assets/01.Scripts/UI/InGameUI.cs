@@ -13,7 +13,7 @@ public class InGameUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StageManager.Instance.curStageIndex = PlayerPrefs.GetInt("Stage'");
+        StageManager.Instance.curStageIndex = PlayerPrefs.GetInt("Stage");
         lvText.text = $"Level {StageManager.Instance.curStageIndex+1}";
 
     }
