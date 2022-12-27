@@ -8,14 +8,11 @@ public class PauseUI : MonoBehaviour
     public TweenPosition optionPaneltp;
 
     public UIButton returnButton;
-    private TweenPosition thisTp;
-
 
     public TweenPosition[] widgetTps;
 
     void Start()
     {
-        thisTp = GetComponent<TweenPosition>();
 
         for (int i = 0; i < widgetTps.Length-1; i++)
         {
@@ -60,14 +57,5 @@ public class PauseUI : MonoBehaviour
             GameManager.Instance.IsPause = false;
 
         }));
-    }
-
-    public void Reverse()
-    {
-    }
-
-    void Update()
-    {
-        
     }
 }

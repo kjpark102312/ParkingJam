@@ -19,11 +19,16 @@ public class Goal : MonoBehaviour
     [SerializeField] private ParticleSystem goalParticle;
     // 자동차가 Goal 지점 오면 체크한번 해주기
 
+    public GoogleAdMob _googleAdMob;
+
     private void Start()
     {
         nextStageUI = FindObjectOfType<NextStageUI>();
 
         GameObject effect = GameObject.Find("ParticleFx");
+        _googleAdMob = FindObjectOfType<GoogleAdMob>();
+
+
 
         for (int i = 0; i < 2; i++)
         {
@@ -67,6 +72,8 @@ public class Goal : MonoBehaviour
                                 Vibration.Vibrate((long)0.1);
                             }
                             nextStageUI.OnNextStageUI();
+
+                            
                             return;
                         }
                     }

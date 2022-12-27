@@ -31,29 +31,39 @@ public class People : MonoBehaviour
 
     void Update()
     {
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.forward, out hit,1f))
+        if(isPatrol)
         {
-            if(hit.collider.CompareTag("Car"))
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
             {
-                StopCoroutine(patrolCo);
-                anim.SetBool("IsWalk", false);
-                isPatrol = false;
+                if (hit.collider.CompareTag("Car"))
+                {
+                    StopAllCoroutines();
+                    anim.SetBool("IsWalk", false);
+                    isPatrol = false;
+                }
+                else
+                {
+                    if(isPatrol == false)
+                    {
+                        StartCoroutine(Patrol());
+                       
+                    }
+                    anim.SetBool("IsWalk", true);
+                    isPatrol = true;
+
+                }
             }
             else
             {
+                if(isPatrol == false)
+                {
+                    StartCoroutine(Patrol());
+                }
                 anim.SetBool("IsWalk", true);
                 isPatrol = true;
-            }    
+            }
         }
-        else
-        {
-            isPatrol = true;
-            anim.SetBool("IsWalk", true);
-        }
-        Debug.DrawRay(transform.position, transform.forward, Color.red, 1f);
-
-        
     }
 
     IEnumerator Patrol()
@@ -68,9 +78,6 @@ public class People : MonoBehaviour
             dir = new Vector3((points[index].position - transform.position).x, 0 , (points[index].position - transform.position).z);
             dir2 = new Vector3(points[index].position.x, transform.position.y, points[index].position.z);
 
-            Debug.Log(dir);
-            Debug.Log(index);
-
             transform.LookAt(dir2);
 
             if (Vector3.Distance(transform.position, points[index].position) <= 1f)
@@ -84,9 +91,8 @@ public class People : MonoBehaviour
                     index = 0;
                 }
             }
-
+            Debug.DrawRay(transform.position, dir.normalized, Color.red, 1f);
             transform.DOMove(transform.position + dir.normalized, 0.2f);
-            Debug.Log("sad");
             yield return new WaitForSeconds(0.5f);
         }
     }
@@ -95,15 +101,15 @@ public class People : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Car"))
         {
-            StopCoroutine(patrolCo);
+            StopAllCoroutines();
             isPatrol = false;
             anim.SetBool("IsWalk", false);
 
             if (collision.gameObject.GetComponent<Car>().isMove == true)
             {
-                rb.constraints = RigidbodyConstraints.FreezePosition;
+                rb.constraints = RigidbodyConstraints.FreezeAll;
 
-                transform.LookAt(collision.transform);
+                transform.LookAt(new Vector3(collision.transform.position.x, transform.position.y, collision.transform.position.z));
 
                 anim.SetTrigger("ColCar");
 

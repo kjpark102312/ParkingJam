@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
     }
     static UIManager _instance = null;
 
-    private Dictionary<UIPanels, GameObject> uiPanelDic = new Dictionary<UIPanels, GameObject>();
+    private Dictionary<UIPanels, GameObject> _uiPanelDic = new Dictionary<UIPanels, GameObject>();
     private void Awake()
     {
         if (_instance == null)
@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
 
         SceneManager.sceneLoaded += (scene, loadSceneMode) =>
         {
-            uiPanelDic.Clear();
+            _uiPanelDic.Clear();
         };
     }
 
@@ -74,8 +74,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject GetUI(UIPanels panel)
     {
-        if (uiPanelDic.ContainsKey(panel))
-            return uiPanelDic[panel];
+        if (_uiPanelDic.ContainsKey(panel))
+            return _uiPanelDic[panel];
         else
         {
             GameObject obj = _mainUI.transform.Find(panel.ToString()).gameObject;
@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviour
 
             if (obj != null)
             {
-                uiPanelDic[panel] = obj;
+                _uiPanelDic[panel] = obj;
             }
 
             return obj;

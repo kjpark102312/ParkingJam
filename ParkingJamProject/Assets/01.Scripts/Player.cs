@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Vector3 firstPos;
-    Vector3 lastPos;
+    private Vector3 _firstPos;
+    private Vector3 _lastPos;
 
     GameObject hitObj;
 
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
                 if (hit.collider.CompareTag("Car"))
                 {
-                    firstPos = hit.point    ;
+                    _firstPos = hit.point;
                     hitObj = hit.collider.gameObject;
                 }
             }
@@ -45,12 +45,12 @@ public class Player : MonoBehaviour
                 if (!isCanTouchCar)
                     return;
 
-                lastPos = hit.point;
+                _lastPos = hit.point;
 
-                if ((lastPos - firstPos).sqrMagnitude > 0.5f && !hitObj.GetComponent<Car>().isMove)
+                if ((_lastPos - _firstPos).sqrMagnitude > 0.5f && !hitObj.GetComponent<Car>().isMove)
                 {
                     isCanTouchCar = false;
-                    hitObj.GetComponent<Car>().Move(lastPos - firstPos);
+                    hitObj.GetComponent<Car>().Move(_lastPos - _firstPos);
                 }
 
                 

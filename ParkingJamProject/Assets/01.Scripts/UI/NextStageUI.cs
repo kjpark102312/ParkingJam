@@ -14,10 +14,18 @@ public class NextStageUI : MonoBehaviour
 
     [SerializeField] TweenRotation emoji = null;
 
+    [SerializeField] private GoogleAdMob _adMob;
+
     void Start()
     {
         nextStageButton.onClick.Add(new EventDelegate(() =>
         {
+            if(true)
+            {
+                _adMob.ShowAd();                
+                return;
+            }
+
             StageManager.Instance.curStageIndex++;
             PlayerPrefs.SetInt("Stage", StageManager.Instance.curStageIndex++);
 

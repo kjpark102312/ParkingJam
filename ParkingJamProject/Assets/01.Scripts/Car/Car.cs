@@ -38,7 +38,6 @@ public class Car : MonoBehaviour
     private CoinEffect _effect;
     private CrashEffect _crashEffect;
 
-
     private IEnumerator _moveCo;
     private IEnumerator _passCo;
 
@@ -48,8 +47,8 @@ public class Car : MonoBehaviour
     protected virtual void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _curstageInfo = GetComponentInParent<Stage>();
         _people = FindObjectsOfType<People>();
-        _curstageInfo = FindObjectOfType<Stage>();
         _timeLimitCar = FindObjectOfType<TimeLimitCar>();
         _effect = FindObjectOfType<CoinEffect>();
         _crashEffect = FindObjectOfType<CrashEffect>();
@@ -91,7 +90,10 @@ public class Car : MonoBehaviour
                 _rb.constraints = RigidbodyConstraints.None;
                 return;
             }
-            _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            if(!_isCol)
+            {
+                _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            }
         }
         else
         {
@@ -180,6 +182,7 @@ public class Car : MonoBehaviour
                     if (hit.transform.GetComponent<Car>().isPassing == true)
                     {
                         StopCoroutine(_moveCo);
+                        Debug.Log("sdf");
                     }
                     else
                     {
@@ -214,8 +217,6 @@ public class Car : MonoBehaviour
 
         int layerMask = 1 << 6 | 1 << 7 | 1 << 9;
 
-        Debug.DrawLine(transform.position, curMoveDir * (distance - 2f), Color.red);
-
         distance = Mathf.Abs(distance);
 
 
@@ -224,8 +225,6 @@ public class Car : MonoBehaviour
             if (hit.transform.CompareTag("Car") && hit.transform.CompareTag("Obstacle") && hit.transform.CompareTag("Wall"))
             {
                 isPass = false;
-
-                Debug.Log(hit.transform.tag);
             }
         }
         else
@@ -347,7 +346,6 @@ public class Car : MonoBehaviour
             if (!isOtherCar)
                 _rb.velocity = dir * _speed;
 
-            Debug.Log("움직인다");
 
             yield return null;
         }
@@ -385,10 +383,16 @@ public class Car : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Car") || collision.gameObject.CompareTag("Obstacle"))
         {
             isPass = false;
-            StopCoroutine(_moveCo);
+            _isCol = true;
+            if (isMove)
+                StopCoroutine(_moveCo);
 
             _rb.velocity = Vector3.zero;
 
+            if (collision.gameObject.CompareTag("Car"))
+            {
+                //CrashAnim(collision.gameObject);
+            }
             Invoke("ColKnockBack", 0.05f);
 
             if(GameManager.Instance.IsVibrate)
@@ -398,6 +402,7 @@ public class Car : MonoBehaviour
 
             if(isMove)
             {
+
                 for (int i = 0; i < _crashEffect._crashEffect.Length; i++)
                 {
                     if (_crashEffect._crashEffect[i].gameObject.activeSelf)
@@ -406,6 +411,8 @@ public class Car : MonoBehaviour
                     _crashEffect._crashEffect[i].gameObject.SetActive(true);
                     _crashEffect._crashEffect[i].Play();
                     _crashEffect._crashEffect[i].transform.position = collision.contacts[0].point;
+                    Debug.Log("ASDASD");
+
 
                     if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
                     {
@@ -426,7 +433,13 @@ public class Car : MonoBehaviour
     // 부딪혔을때 연출
     void CrashAnim(GameObject crashObj)
     {
-        crashObj.transform.DORotate(new Vector3(curMoveDir.x * 10f, crashObj.transform.localEulerAngles.y, crashObj.transform.localEulerAngles.z), 0.2f).SetLoops(2, LoopType.Yoyo);
+        crashObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+
+        crashObj.transform.DORotate(new Vector3((curMoveDir).normalized.x * 10f, crashObj.transform.localEulerAngles.y, crashObj.transform.localEulerAngles.z), 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+        {
+            crashObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            _isCol = false;
+        });
     }
 
     // 게임오버 연출
@@ -479,8 +492,6 @@ public class Car : MonoBehaviour
         {
             if (isGameOver)
                 return;
-
-            StopCoroutine(_moveCo);
 
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;

@@ -26,7 +26,7 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    private Dictionary<string, GameObject> stagesDic = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> _stagesDic = new Dictionary<string, GameObject>();
 
     public GameObject[] stages;
 
@@ -52,17 +52,16 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         stages = Resources.LoadAll<GameObject>("Stages");
-        PlayerPrefs.SetInt("Stage", 14);
+        PlayerPrefs.SetInt("Stage", 0);
         if (PlayerPrefs.GetInt("Stage") >= stages.Length-1)
         {
             PlayerPrefs.SetInt("Stage", 0);
             curStageIndex = 0;
-            Debug.Log("");
         }
 
         for (int i = 0; i < stages.Length; i++)
         {
-            stagesDic[stages[i].name.ToString()] = stages[i];
+            _stagesDic[stages[i].name.ToString()] = stages[i];
         }
 
         LoadStage();
@@ -77,27 +76,25 @@ public class StageManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("Stage") == 0)
         {
-            Instantiate(stagesDic["Stage"], Vector3.zero, Quaternion.identity);
+            Instantiate(_stagesDic["Stage"], Vector3.zero, Quaternion.identity);
             Camera.main.transform.position = new Vector3(42.7f, 27.8f, -67.2f);
         }
         else if (PlayerPrefs.GetInt("Stage") % 3 == 0)
         {
             if (PlayerPrefs.GetInt("Stage") / 3 > 1)
             {
-                if (!stagesDic.ContainsKey("HardStage" + PlayerPrefs.GetInt("Stage") / 3))
+                if (!_stagesDic.ContainsKey("HardStage" + PlayerPrefs.GetInt("Stage") / 3))
                 {
-                    Instantiate(stagesDic["Stage" + (PlayerPrefs.GetInt("Stage"))], Vector3.zero, Quaternion.identity);
+                    Instantiate(_stagesDic["Stage" + (PlayerPrefs.GetInt("Stage"))], Vector3.zero, Quaternion.identity);
                     Camera.main.transform.position = new Vector3(42.7f, 33.6f, -67.2f);
                     return;
                 }
             }
-            Instantiate(stagesDic["HardStage" + PlayerPrefs.GetInt("Stage") / 3], Vector3.zero, Quaternion.identity);
+            Instantiate(_stagesDic["HardStage" + PlayerPrefs.GetInt("Stage") / 3], Vector3.zero, Quaternion.identity);
         }
         else
         {
-            Debug.Log(PlayerPrefs.GetInt("Stage"));
-            Debug.Log(stages.Length);
-            Instantiate(stagesDic["Stage" + PlayerPrefs.GetInt("Stage")], Vector3.zero, Quaternion.identity);
+            Instantiate(_stagesDic["Stage" + PlayerPrefs.GetInt("Stage")], Vector3.zero, Quaternion.identity);
             Camera.main.transform.position = new Vector3(42.7f, 33.6f, -67.2f);
         }
     }   
