@@ -20,7 +20,7 @@ public class NextStageUI : MonoBehaviour
     {
         nextStageButton.onClick.Add(new EventDelegate(() =>
         {
-            if(true)
+            if(Random.Range(0,3) != 0)
             {
                 _adMob.ShowAd();                
                 return;

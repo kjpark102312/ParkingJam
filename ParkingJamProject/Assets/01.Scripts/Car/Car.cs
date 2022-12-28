@@ -435,11 +435,27 @@ public class Car : MonoBehaviour
     {
         crashObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
 
-        crashObj.transform.DORotate(new Vector3((curMoveDir).normalized.x * 10f, crashObj.transform.localEulerAngles.y, crashObj.transform.localEulerAngles.z), 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+        Debug.Log(curMoveDir);
+        if(curMoveDir.z != 0)
         {
-            crashObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-            _isCol = false;
-        });
+            Debug.Log(curMoveDir.z);
+
+            crashObj.transform.DORotate(new Vector3(curMoveDir.z * 10, crashObj.transform.localEulerAngles.y, 0), 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+            {
+                crashObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+                _isCol = false;
+            });
+        }
+        else
+        {
+            Debug.Log(curMoveDir.x);
+
+            crashObj.transform.DORotate(new Vector3(curMoveDir.x * 10f, crashObj.transform.localEulerAngles.y,0), 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+            {
+                crashObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+                _isCol = false;
+            });
+        }
     }
 
     // 게임오버 연출
@@ -499,7 +515,6 @@ public class Car : MonoBehaviour
             _rb.constraints = RigidbodyConstraints.FreezeRotation;
 
             _rb.AddForce(-curMoveDir * 2.5f, ForceMode.Impulse);
-
 
             Invoke("FreezePos", 0.1f);
         }
