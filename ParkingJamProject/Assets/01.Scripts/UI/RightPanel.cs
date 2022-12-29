@@ -22,6 +22,8 @@ public class RightPanel : MonoBehaviour
     {
         pauseButton.onClick.Add(new EventDelegate(() => {
 
+            SoundManager.Instance.PlaySFXSound("ButtonClickSound");
+
             pausePaneltp.enabled = true;
 
             UITweener tween = TweenPosition.Begin(pausePaneltp.gameObject, 0.2f, Vector3.zero);
@@ -42,6 +44,8 @@ public class RightPanel : MonoBehaviour
 
         challengeButton.onClick.Add(new EventDelegate(() =>
         {
+            SoundManager.Instance.PlaySFXSound("ButtonClickSound");
+
             challengePaneltp.enabled = true;
 
             UIManager.Instance.GetUI(UIPanels.BackGround).SetActive(true);

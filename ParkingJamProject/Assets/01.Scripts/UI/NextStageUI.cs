@@ -26,6 +26,8 @@ public class NextStageUI : MonoBehaviour
                 return;
             }
 
+            SoundManager.Instance.PlaySFXSound("ButtonClickSound");
+
             StageManager.Instance.curStageIndex++;
             PlayerPrefs.SetInt("Stage", StageManager.Instance.curStageIndex++);
 

@@ -9,6 +9,7 @@ public class RestartUI : MonoBehaviour
     {
         restartButton.onClick.Add(new EventDelegate(() =>
         {
+            SoundManager.Instance.PlaySFXSound("ButtonClickSound");
             LoadSceneManager.Instance.ReloadScene();
             Debug.Log("æ¿ ¿ÁΩ√¿€");
         }));

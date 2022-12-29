@@ -68,6 +68,7 @@ public class Car : MonoBehaviour
 
                     CrashPeople();
                     Invoke("GameOver", 1f);
+                    SoundManager.Instance.PlaySFXSound("GameOverSound");
                 }
             };
         }
@@ -389,6 +390,7 @@ public class Car : MonoBehaviour
 
             _rb.velocity = Vector3.zero;
 
+
             if (collision.gameObject.CompareTag("Car"))
             {
                 //CrashAnim(collision.gameObject);
@@ -402,6 +404,7 @@ public class Car : MonoBehaviour
 
             if(isMove)
             {
+                SoundManager.Instance.PlaySFXSound("CarCrashSound");
 
                 for (int i = 0; i < _crashEffect._crashEffect.Length; i++)
                 {
@@ -411,8 +414,6 @@ public class Car : MonoBehaviour
                     _crashEffect._crashEffect[i].gameObject.SetActive(true);
                     _crashEffect._crashEffect[i].Play();
                     _crashEffect._crashEffect[i].transform.position = collision.contacts[0].point;
-                    Debug.Log("ASDASD");
-
 
                     if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
                     {

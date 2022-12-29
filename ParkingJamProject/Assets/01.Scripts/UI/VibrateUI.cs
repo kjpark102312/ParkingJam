@@ -19,6 +19,8 @@ public class VibrateUI : MonoBehaviour
     {
         vibrateButton.onClick.Add(new EventDelegate(() =>
         {
+            SoundManager.Instance.PlaySFXSound("ButtonClickSound");
+
             if (isOn)
             {
                 posTween.enabled = true;
@@ -40,10 +42,5 @@ public class VibrateUI : MonoBehaviour
                 GameManager.Instance.IsVibrate = true;
             }
         }));
-    }
-
-    void Update()
-    {
-        
     }
 }

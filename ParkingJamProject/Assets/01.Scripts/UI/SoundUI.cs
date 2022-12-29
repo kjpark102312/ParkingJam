@@ -22,7 +22,9 @@ public class SoundUI : MonoBehaviour
     {
         soundButton.onClick.Add(new EventDelegate(() =>
         {
-            if(isOn)
+            SoundManager.Instance.PlaySFXSound("ButtonClickSound");
+
+            if (isOn)
             {
                 posTween.enabled = true;
                 colorTween.enabled = true;

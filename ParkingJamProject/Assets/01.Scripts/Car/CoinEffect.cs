@@ -37,6 +37,7 @@ public class CoinEffect : MonoBehaviour
                 continue;
             }
 
+            SoundManager.Instance.PlaySFXSound("GetCoinSound");
 
             effects[i].gameObject.SetActive(true);
             effects[i].Play();

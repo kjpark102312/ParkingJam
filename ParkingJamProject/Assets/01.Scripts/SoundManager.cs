@@ -27,10 +27,10 @@ public class SoundManager : MonoBehaviour
     public float masterVolumeSFX = 1f;
     public float masterVolumeBGM = 1f;
 
-    [SerializeField]
-    private AudioClip mainBgmAudioClip; //메인화면에서 사용할 BGM
-    [SerializeField]
-    private AudioClip titleBgmAudioClip; //어드벤쳐씬에서 사용할 BGM
+    //[SerializeField]
+    //private AudioClip mainBgmAudioClip; //메인화면에서 사용할 BGM
+    //[SerializeField]
+    //private AudioClip titleBgmAudioClip; //어드벤쳐씬에서 사용할 BGM
 
     [SerializeField]
     private AudioClip[] sfxAudioClips; //효과음들 지정
@@ -49,7 +49,7 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject); //여러 씬에서 사용할 것.
 
         //bgmPlayer = GameObject.Find("BGMSoundPlayer").GetComponent<AudioSource>();
-        //sfxPlayer = GameObject.Find("SFXSoundPlayer").GetComponent<AudioSource>();
+        sfxPlayer = GameObject.Find("SFXSoundPlayer").GetComponent<AudioSource>();
 
         foreach (AudioClip audioclip in sfxAudioClips)
         {
@@ -101,12 +101,12 @@ public class SoundManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Main")
         {
-            bgmPlayer.clip = mainBgmAudioClip;
+            //bgmPlayer.clip = mainBgmAudioClip;
             bgmPlayer.Play();
         }
         else if (SceneManager.GetActiveScene().name == "Title")
         {
-            bgmPlayer.clip = titleBgmAudioClip;
+            //bgmPlayer.clip = titleBgmAudioClip;
             bgmPlayer.Play();
         }
         //현재 씬에 맞는 BGM 재생

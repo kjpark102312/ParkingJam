@@ -26,6 +26,8 @@ public class PauseUI : MonoBehaviour
 
         optionButton.onClick.Add(new EventDelegate(() =>
         {
+            SoundManager.Instance.PlaySFXSound("ButtonClickSound");
+
             UITweener tween = TweenPosition.Begin(this.gameObject, 0.2f, new Vector3(-406f, 0, 0));
 
             for (int i = 0; i < widgetTps.Length; i++)
@@ -43,6 +45,7 @@ public class PauseUI : MonoBehaviour
 
         returnButton.onClick.Add(new EventDelegate(() =>
         {
+            SoundManager.Instance.PlaySFXSound("ButtonClickSound");
 
             UITweener tween = TweenPosition.Begin(this.gameObject, 0.2f, new Vector3(406f, 0, 0));
 

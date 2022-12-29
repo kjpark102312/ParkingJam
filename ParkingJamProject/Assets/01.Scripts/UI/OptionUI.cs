@@ -21,6 +21,8 @@ public class OptionUI : MonoBehaviour
         {
             UITweener tween = TweenPosition.Begin(UIManager.Instance.GetUI(UIPanels.PauseUI), 0.2f, new Vector3(0, 0, 0));
 
+            SoundManager.Instance.PlaySFXSound("ButtonClickSound");
+
             tp.enabled = true;
             tp.PlayReverse();
         }));
