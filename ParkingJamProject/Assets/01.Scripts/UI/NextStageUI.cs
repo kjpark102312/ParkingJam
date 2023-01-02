@@ -20,11 +20,11 @@ public class NextStageUI : MonoBehaviour
     {
         nextStageButton.onClick.Add(new EventDelegate(() =>
         {
-            if(Random.Range(0,3) != 0)
-            {
-                _adMob.ShowAd();                
-                return;
-            }
+            //if(Random.Range(0,3) != 0)
+            //{
+            //    _adMob.ShowAd();                
+            //    return;
+            //}
 
             SoundManager.Instance.PlaySFXSound("ButtonClickSound");
 

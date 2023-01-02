@@ -52,7 +52,7 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         stages = Resources.LoadAll<GameObject>("Stages");
-        
+
         if (PlayerPrefs.GetInt("Stage") >= stages.Length-1)
         {
             PlayerPrefs.SetInt("Stage", 0);

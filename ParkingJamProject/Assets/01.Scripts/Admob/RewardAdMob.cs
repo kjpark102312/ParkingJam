@@ -43,7 +43,7 @@ public class RewardAdMob : MonoBehaviour
 
     private void Start()
     {
-        CreateAndLoadRewardedAd();
+        //CreateAndLoadRewardedAd();
     }
 
     public void ShowAd()

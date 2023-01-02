@@ -66,7 +66,7 @@ public class GoogleAdMob : MonoBehaviour
 
     private void Start()
     {
-        RequestInterstitial();
+        //RequestInterstitial();
     }
 
     public void ShowAd()

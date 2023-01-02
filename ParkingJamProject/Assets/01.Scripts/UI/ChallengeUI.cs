@@ -2,27 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Challenges
+{
+    CarOut,
+    CarCrash,
+    LevelClear,
+    Crash
+}
+
 public class ChallengeUI : MonoBehaviour
 {
-    public UIButton returnButton;
-
-    private TweenPosition challengeTp;
     void Start()
     {
-        challengeTp = GetComponent<TweenPosition>();
-        returnButton.onClick.Add(new EventDelegate(() =>
-        {
-            challengeTp.PlayReverse();
+        int _index = Random.Range(0, 4);
 
-            UIManager.Instance.GetUI(UIPanels.LeftUI).SetActive(true);
-            UIManager.Instance.GetUI(UIPanels.RightUI).SetActive(true);
-            UIManager.Instance.GetUI(UIPanels.InGameUI).SetActive(true);
-            UIManager.Instance.GetUI(UIPanels.BackGround).GetComponent<TweenPosition>().PlayReverse();
-        }));
-    }
 
-    void Update()
-    {
-        
     }
 }

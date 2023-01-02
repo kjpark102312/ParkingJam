@@ -142,15 +142,17 @@ public class Car : MonoBehaviour
                     else
                         angle = transform.localEulerAngles.y - 90f;
 
+                    Debug.Log(transform.localEulerAngles.y);
+                    //if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
+                    //{
+                    //    transform.position = new Vector3(transform.position.x, transform.position.y, targetCorner.position.z);
+                    //}
+                    //else
+                    //{
+                    //    transform.position = new Vector3(targetCorner.position.x, transform.position.y, transform.position.z);
+                    //}
 
-                    if (transform.localEulerAngles.y == 270 || transform.localEulerAngles.y == 90)
-                    {
-                        transform.position = new Vector3(transform.position.x, transform.position.y, targetCorner.position.z);
-                    }
-                    else
-                    {
-                        transform.position = new Vector3(targetCorner.position.x, transform.position.y, transform.position.z);
-                    }
+                    PassAnim();
 
                     transform.DORotate(new Vector3(0f, angle, 0), 0.2f).OnComplete(() =>
                     {
@@ -166,6 +168,31 @@ public class Car : MonoBehaviour
                         StartCoroutine(_passCo);
                     });
                 }
+            }
+        }
+    }
+
+    private void PassAnim()
+    {
+        if(curMoveDir != -transform.right.normalized)
+        {
+            switch(transform.localEulerAngles.y)
+            {
+                case 0:
+                    transform.DOMoveZ(transform.position.z + 2f, 0.2f);
+                    break;
+                case 90:
+                    transform.DOMoveX(transform.position.x + 2f, 0.2f);
+                    break;
+                case 180:
+                    transform.DOMoveZ(transform.position.z - 2f, 0.2f);
+                    break;
+                case 270:
+                    transform.DOMoveX(transform.position.x - 2f, 0.2f);
+                    break;
+                default:
+                    break;
+
             }
         }
     }

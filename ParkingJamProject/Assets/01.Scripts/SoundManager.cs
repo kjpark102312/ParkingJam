@@ -54,7 +54,7 @@ public class SoundManager : MonoBehaviour
         foreach (AudioClip audioclip in sfxAudioClips)
         {
             audioClipsDic.Add(audioclip.name, audioclip);
-        }
+        }   
     }
 
     void Start()

@@ -16,7 +16,7 @@ public class Skip : MonoBehaviour
         skipUI.GetComponentInChildren<UIButton>().onClick.Add(new EventDelegate(() =>
         {
             SoundManager.Instance.PlaySFXSound("ButtonClickSound");
-            mob.ShowAd();
+            //mob.ShowAd();
         }));
     }
 

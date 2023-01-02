@@ -10,7 +10,7 @@ public class BannerAdMob : MonoBehaviour
 
     public void Start()
     {
-        this.RequestBanner();
+        //this.RequestBanner();
     }
 
     private void RequestBanner()
